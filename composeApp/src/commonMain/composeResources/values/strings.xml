@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY appSettings "App Settings">
+    <!ENTITY appSubtitle "Christchurch Botanic Gardens">
+]><resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="random_button">Random</string>
+    <string name="random_message">Hit the Random button for 1 of %1$d routes</string>
+
+</resources>
