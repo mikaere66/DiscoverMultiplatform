@@ -105,11 +105,25 @@ class MainViewModel(
                     )
                 }
             }
-            is MainListEvent.SetCurrentRoute -> {
-                _state.update { state ->
-                    state.copy(
-                        currentRoute = event.route
-                    )
+            is MainListEvent.SetCurrentRouteId -> {
+                viewModelScope.launch {
+                    val currentRoute = when (event.routeId) {
+                        0L -> null
+                        else -> {
+                            val routeId = when (event.routeId) {
+                                -1L -> {
+                                    database.getRandomRouteId()
+                                }
+                                else -> event.routeId
+                            }
+                            database.getRouteById(routeId)
+                        }
+                    }
+                    _state.update { state ->
+                        state.copy(
+                            currentRoute = currentRoute
+                        )
+                    }
                 }
             }
             is MainListEvent.SetCurrentSeason -> {

@@ -84,11 +84,13 @@ object GeometrySerializer: KSerializer<List<Coordinates>> {
                 val doubles: List<Double> =
                     Json.decodeFromJsonElement(element)
 
-                // Remember, coords are still reversed
+                /* Be aware that these two are reversed (by
+                   Google Maps standards) i.e. in the .json
+                   files, they appear as longitude,latitude */
                 coordsList.add(
                     Coordinates(
-                        longitude = doubles[0],
-                        latitude  = doubles[1]
+                        latitude  = doubles[1],
+                        longitude = doubles[0]
                     )
                 )
             }

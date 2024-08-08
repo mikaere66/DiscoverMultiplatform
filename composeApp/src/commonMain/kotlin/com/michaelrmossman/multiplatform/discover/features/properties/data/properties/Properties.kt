@@ -30,7 +30,7 @@ data class Properties(
 //    val name: String? = null,
 
     @SerialName("RouteName")
-    val name: String? = null,
+    val name: String,
 
     @SerialName("RouteServiceStatus")
     val status: String? = null,

@@ -9,6 +9,6 @@ import com.michaelrmossman.multiplatform.discover.features.geometry.Coordinates
 expect fun LocationVisualizer(
     coords: Coordinates,
     modifier: Modifier,
-    title: String?,
-    // parentScrollEnableState: MutableState<Boolean>
+    parentScrollEnableState: MutableState<Boolean>,
+    title: String?
 )

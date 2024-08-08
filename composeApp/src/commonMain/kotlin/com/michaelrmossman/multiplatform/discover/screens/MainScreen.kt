@@ -23,9 +23,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import co.touchlab.kermit.Logger
 import com.michaelrmossman.multiplatform.discover.enums.Screen
 import com.michaelrmossman.multiplatform.discover.presentation.MainViewModel
+import com.michaelrmossman.multiplatform.discover.tabs.HomeTab
+import com.michaelrmossman.multiplatform.discover.tabs.RouteTab
 import com.michaelrmossman.multiplatform.discover.theme.AppTheme
 import discovermultiplatform.composeapp.generated.resources.Res
 import discovermultiplatform.composeapp.generated.resources.random_message
+import io.github.alexzhirkevich.cupertino.adaptive.AdaptiveButton
 import io.github.alexzhirkevich.cupertino.adaptive.AdaptiveScaffold
 import io.github.alexzhirkevich.cupertino.adaptive.ExperimentalAdaptiveApi
 import kotlinx.coroutines.launch
@@ -45,17 +48,11 @@ fun MainScreen() {
     )
     val horizontalPadding = 8.dp
 
-    // val coordsCount = remember { mutableStateOf(0L) }
     val routeCount = remember { mutableStateOf(0L) }
     val coroutineScope = rememberCoroutineScope()
     coroutineScope.launch {
-        // coordsCount.value = viewModel.getCoordsCount()
         routeCount.value = viewModel.getRouteCount()
     }
-    val message = stringResource(
-        resource = Res.string.random_message,
-        formatArgs = arrayOf(routeCount.value)
-    )
 
     AppTheme {
         AdaptiveScaffold(
@@ -66,8 +63,25 @@ fun MainScreen() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Text(text = coordsCount.value.toString())
-                Text(text = message)
+                when (state.currentScreen.value) {
+                    Screen.Home -> {
+                        HomeTab(
+                            onEvent = viewModel::onEvent,
+                            routeCount = routeCount.value,
+                            state = state
+                        )
+                    }
+                    Screen.Faves -> {
+                    }
+                    Screen.Route -> {
+                        RouteTab(
+                            onEvent = viewModel::onEvent,
+                            state = state
+                        )
+                    }
+                    Screen.Settings -> {
+                    }
+                }
             }
         }
     }

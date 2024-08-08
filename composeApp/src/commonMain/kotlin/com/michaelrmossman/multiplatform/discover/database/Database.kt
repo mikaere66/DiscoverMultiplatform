@@ -33,6 +33,10 @@ internal class Database(
         return coordinateQueries.getCoordsCount().executeAsOne()
     }
 
+    internal fun getRandomRouteId(): Long {
+        return routeQueries.getRandomRouteId().executeAsOne()
+    }
+
     internal fun getRouteById(roId: Long): Routes {
         return routeQueries.getRouteById(roId).executeAsOne()
     }
@@ -78,7 +82,7 @@ internal class Database(
                                 long = long0,
                                 area = properties.area?.trim(),
                                 plac = properties.place?.trim(),
-                                name = properties.name?.trim(),
+                                name = properties.name.trim(),
                                 shar = properties.shared?.trim(),
                                 stat = properties.status?.trim(),
                                 desc = properties.description?.trim()

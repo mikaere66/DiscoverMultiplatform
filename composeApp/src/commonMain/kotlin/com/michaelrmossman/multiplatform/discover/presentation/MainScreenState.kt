@@ -14,7 +14,7 @@ data class MainScreenState(
     val currentSeason: Int = 0, // All seasons
 
     val currentScreen: MutableStateFlow<Screen> =
-        MutableStateFlow(Screen.Main),
+        MutableStateFlow(Screen.Home),
 
     val favourites: List<Highlight> = emptyList(),
     val highlights: List<Highlight> = emptyList(),

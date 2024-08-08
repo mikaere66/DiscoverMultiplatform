@@ -1,7 +1,8 @@
 package com.michaelrmossman.multiplatform.discover.enums
 
 enum class Screen {
-    Main,
+    Home,
     Faves,
+    Route,
     Settings
 }

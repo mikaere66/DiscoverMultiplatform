@@ -17,8 +17,8 @@ import platform.MapKit.MKPointAnnotation
 actual fun LocationVisualizer(
     coords: Coordinates,
     modifier: Modifier,
-    title: String?,
-//    parentScrollEnableState: MutableState<Boolean>
+    parentScrollEnableState: MutableState<Boolean>,
+    title: String?
 ) {
     val location = CLLocationCoordinate2DMake(coords.latitude, coords.longitude)
     val annotation = remember {

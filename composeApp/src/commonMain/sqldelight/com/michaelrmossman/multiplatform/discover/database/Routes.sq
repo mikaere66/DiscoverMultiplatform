@@ -6,7 +6,7 @@ CREATE TABLE Routes(
     long REAL NOT NULL,
     area TEXT,
     plac TEXT,
-    name TEXT,
+    name TEXT NOT NULL,
     shar TEXT,
     stat TEXT,
     desc TEXT,
@@ -24,6 +24,12 @@ getRouteCount:
 SELECT COUNT(*)
 FROM Routes
 WHERE name != ?;
+
+getRandomRouteId:
+SELECT roId
+FROM Routes
+ORDER BY random()
+LIMIT 1;
 
 getRoutes:
 SELECT *

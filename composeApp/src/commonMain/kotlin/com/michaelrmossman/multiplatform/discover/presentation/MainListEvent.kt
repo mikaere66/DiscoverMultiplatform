@@ -10,7 +10,8 @@ sealed interface MainListEvent {
 
     data class SetCurrentHighlight(val hilt: Highlight?) : MainListEvent
 
-    data class SetCurrentRoute(val route : Routes?) : MainListEvent
+    // data class SetCurrentRoute(val route : Routes?) : MainListEvent
+    data class SetCurrentRouteId(val routeId : Long) : MainListEvent
 
     data class SetCurrentSeason(val seasonDbId : Int): MainListEvent
 

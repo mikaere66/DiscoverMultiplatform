@@ -22,6 +22,11 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
+    fun getRandomRouteId(): Long {
+        return database.getRandomRouteId()
+    }
+
+    @Throws(Exception::class)
     fun getRouteById(roId: Long): Routes {
         return database.getRouteById(roId)
     }
