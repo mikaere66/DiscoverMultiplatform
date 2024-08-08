@@ -1,20 +1,20 @@
 package com.michaelrmossman.multiplatform.discover.utils
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.LocalTime
-import kotlinx.datetime.toLocalDateTime
-import kotlinx.datetime.TimeZone
+import platform.Foundation.NSDate
+import platform.Foundation.NSDateFormatter
+import platform.Foundation.NSTimeZone
+import platform.Foundation.localTimeZone
+import platform.Foundation.timeIntervalSince1970
 
-// https://medium.com/programming-with-swift/get-hours-minutes-and-seconds-from-date-with-swift-d11bdac4368c
-// https://stackoverflow.com/questions/48371082/swift-dateformatter-optional-milliseconds
+// https://medium.com/@adman.shadman/implementing-ios-android-date-time-utilities-in-kotlin-multiplatform-285d03d5e877
 actual fun getLocalTime(): String {
     // Returns e.g. 20:37:00.866
-    let date = Date()
-    var calendar = Calendar.current
-    let hour = calendar.component(.hour, from: date)
-    let minute = calendar.component(.minute, from: date)
-    let second = calendar.component(.second, from: date)
-    return "\(hour):\(minute):\(second)"
+    val timeStamp = (NSDate().timeIntervalSince1970 * 1000).toLong()
+    val outputFormat = "H:m:s.S"
+    val formatter = NSDateFormatter().apply {
+        dateFormat = outputFormat
+        timeZone = NSTimeZone.localTimeZone
+    }
+    val date = NSDate(timeStamp.toDouble() / 1000)
+    return formatter.stringFromDate(date)
 }

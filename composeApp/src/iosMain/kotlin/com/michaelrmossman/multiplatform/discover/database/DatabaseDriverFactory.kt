@@ -1,4 +1,4 @@
-package com.michaelrmossman.multiplatform.discover.databasee
+package com.michaelrmossman.multiplatform.discover.database
 
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
