@@ -29,9 +29,7 @@ fun WalksScreen(
     modifier: Modifier,
     onEvent: (MainListEvent) -> Unit
 ) {
-    // Logger.d("HEY") { "WalksScreen" }
-
-    val lazyState = rememberLazyListState()
+    val lazyListState = rememberLazyListState()
 
     OnBackHandler(
         currentDestination = listState.currentNavType,
@@ -39,6 +37,7 @@ fun WalksScreen(
         startDestination = listState.startDestination
     )
 
+    // Logger.d("HEY") { listState.routes.size.toString() }
     when (listState.pleaseWaitMessage.isNotBlank()) {
         true -> {
             Column(
@@ -61,10 +60,9 @@ fun WalksScreen(
             }
         }
         else -> {
-            // Logger.d("HEY") { listState.communityItems.size.toString() }
             LazyColumn(
                 modifier = Modifier.padding(horizontal = 6.dp),
-                state = lazyState
+                state = lazyListState
             ) {
                 items(
                     items = listState.routes,

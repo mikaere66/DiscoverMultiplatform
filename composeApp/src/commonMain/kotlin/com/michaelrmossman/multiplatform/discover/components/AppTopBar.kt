@@ -4,7 +4,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.michaelrmossman.multiplatform.discover.actions.ActionsWalks
@@ -26,20 +25,12 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun AppTopBar(
     onEvent: (MainListEvent) -> Unit,
-    listState: MainListState
+    listState: MainListState,
+    onNavigateUp: () -> Unit
 ) {
-    val onClick = {
-//        onEvent(
-//            MainListEvent.SetCurrentRouteKtId(
-//                routeId = 0L
-//            )
-//        )
-        onEvent(
-            MainListEvent.SetCurrentNavType(
-                navType = listState.startDestination
-            )
-        )
-    }
+    val backTextOrDesc = stringResource(
+        resource = Res.string.desc_navigate_back
+    )
 
     AdaptiveTopAppBar(
         actions = {
@@ -54,50 +45,33 @@ fun AppTopBar(
             }
         },
         // https://stackoverflow.com/questions/69192042/how-to-use-jetpack-compose-app-bar-backbutton/70409412#70409412
-//        navigationIcon = {
-//            if (
-//                listState.currentNavType.name
-//                !=
-//                listState.startDestination.name
-//            ) {
-//                val backTextOrDesc = stringResource(
-//                    resource = Res.string.desc_navigate_back
-//                )
-//                AdaptiveWidget(
-//                    cupertino = {
-//                        CupertinoNavigateBackButton(
-//                            onClick = { onClick() },
-//                        ) {
-//                            CupertinoText(backTextOrDesc)
-//                        }
-//                    },
-//                    material = {
-//                        IconButton(
-//                            onClick = { onClick() }
-//                        ) {
-//                            Icon(
-//                                contentDescription = backTextOrDesc,
-//                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack
-//                            )
-//                        }
-//                    }
-//                )
-//            }
-//        },
-        title = {
-            AdaptiveWidget(
-                cupertino = { // TODO
-                    Text(
-                        text = stringResource(Res.string.app_name)
-                    )
-                },
-                material = {
-                    Text(
-                        text = stringResource(Res.string.app_name),
-                        style = MaterialTheme.typography.headlineMedium
-                    )
-                }
-            )
-        }
+        navigationIcon = {
+            if (
+                listState.currentNavType.name
+                !=
+                listState.startDestination.name
+            ) {
+                AdaptiveWidget(
+                    cupertino = {
+                        CupertinoNavigateBackButton(
+                            onClick = { onNavigateUp() },
+                        ) {
+                            CupertinoText(backTextOrDesc)
+                        }
+                    },
+                    material = {
+                        IconButton(
+                            onClick = { onNavigateUp() }
+                        ) {
+                            Icon(
+                                contentDescription = backTextOrDesc,
+                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack
+                            )
+                        }
+                    }
+                )
+            }
+        },
+        title = { Text(text = stringResource(resource = Res.string.app_name)) }
     )
 }

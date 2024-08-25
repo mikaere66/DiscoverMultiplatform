@@ -21,9 +21,7 @@ fun CommunityScreen(
     modifier: Modifier,
     onEvent: (MainListEvent) -> Unit
 ) {
-    // Logger.d("HEY") { "CommunityScreen" }
-
-    val lazyState = rememberLazyListState()
+    val lazyListState = rememberLazyListState()
 
     OnBackHandler(
         currentDestination = listState.currentNavType,
@@ -34,7 +32,7 @@ fun CommunityScreen(
     // Logger.d("HEY") { listState.communityItems.size.toString() }
     LazyColumn(
         modifier = Modifier.padding(horizontal = 6.dp),
-        state = lazyState
+        state = lazyListState
     ) {
         items(
             items = listState.communityItems,

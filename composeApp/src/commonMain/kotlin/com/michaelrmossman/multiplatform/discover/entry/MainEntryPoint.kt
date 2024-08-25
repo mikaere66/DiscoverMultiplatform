@@ -23,6 +23,7 @@ import com.michaelrmossman.multiplatform.discover.theme.AppTheme
 @Composable
 fun MainEntryPoint() {
 
+
     AppTheme {
 
         Surface(Modifier.fillMaxSize()) {
@@ -36,43 +37,65 @@ fun MainEntryPoint() {
             )
             val navController = rememberNavController()
             val listState by viewModel.state.collectAsState()
+            val navItemStart = listState.navItems.find { navItem ->
+                navItem.navType.name == listState.startDestination.name
+            } /* Note : nullable ... refer to onClickHandler() below */
+            val onNavigateUp = {
+                onClickHandler(
+                    navController,
+                    navItemStart,
+                    listState.startDestination
+                )
+                viewModel.onEvent(
+                    MainListEvent.SetCurrentNavType(
+                        navType = listState.startDestination
+                    )
+                )
+            }
 
             when (windowSizeClass.widthSizeClass) {
                 WindowWidthSizeClass.Compact -> MainNavBar(
                     listState = listState,
                     navController = navController,
                     onClick = ::onClickHandler,
-                    onEvent = viewModel::onEvent
+                    onEvent = viewModel::onEvent,
+                    onNavigateUp = { onNavigateUp() }
                 )
                 WindowWidthSizeClass.Medium -> MainNavRail(
                     listState = listState,
                     navController = navController,
                     onClick = ::onClickHandler,
-                    onEvent = viewModel::onEvent
+                    onEvent = viewModel::onEvent,
+                    onNavigateUp = { onNavigateUp() }
                 )
                 WindowWidthSizeClass.Expanded -> MainNavDrawer(
                     listState = listState,
                     navController = navController,
                     onClick = ::onClickHandler,
-                    onEvent = viewModel::onEvent
+                    onEvent = viewModel::onEvent,
+                    onNavigateUp = { onNavigateUp() }
                 )
             }
         }
     }
 }
 
+/* navItem is nullable because on initialising onNavigateUp
+   above, listState.navItems has not yet been populated */
 fun onClickHandler(
     navController: NavHostController,
-    navItem: NavigationItem,
+    navItem: NavigationItem?,
     startDestination: NavigationType
 ) {
-    navController.navigate(navItem.route) {
-        popUpTo(
-            startDestination.name
-        ) {
-            saveState = true
+    navItem?.route?.let { route ->
+        navController.navigate(route) {
+            popUpTo(
+                startDestination.name
+            ) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
         }
-        launchSingleTop = true
-        restoreState = true
     }
 }

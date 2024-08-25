@@ -34,9 +34,7 @@ fun FavesScreen(
     modifier: Modifier,
     onEvent: (MainListEvent) -> Unit
 ) {
-    // Logger.d("HEY") { "FavesScreen" }
-
-    val lazyState = rememberLazyListState()
+    val lazyListState = rememberLazyListState()
 
     OnBackHandler(
         currentDestination = listState.currentNavType,
@@ -44,6 +42,7 @@ fun FavesScreen(
         startDestination = listState.startDestination
     )
 
+    // Logger.d("HEY") { listState.favourites.size.toString() }
     when (listState.favourites.size) {
         0 -> {
             Column(
@@ -75,7 +74,7 @@ fun FavesScreen(
             // Logger.d("HEY") { listState.favourites.size.toString() }
             LazyColumn(
                 modifier = Modifier.padding(horizontal = 6.dp),
-                state = lazyState
+                state = lazyListState
             ) {
 //                items(
 //                    items = listState.favourites,

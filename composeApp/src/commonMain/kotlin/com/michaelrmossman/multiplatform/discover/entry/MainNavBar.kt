@@ -23,7 +23,8 @@ fun MainNavBar(
     listState: MainListState,
     navController: NavHostController,
     onClick: (NavHostController, NavigationItem, NavigationType) -> Unit,
-    onEvent: (MainListEvent) -> Unit
+    onEvent: (MainListEvent) -> Unit,
+    onNavigateUp: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -58,6 +59,7 @@ fun MainNavBar(
             AppTopBar(
                 listState = listState,
                 onEvent = onEvent,
+                onNavigateUp = { onNavigateUp() }
             )
         }
     ) { paddingValues ->

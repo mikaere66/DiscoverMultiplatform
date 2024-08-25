@@ -59,7 +59,7 @@ kotlin {
             implementation(libs.play.services.maps)
         }
         commonMain.dependencies {
-            implementation(compose.runtime)
+            api(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
             implementation(compose.components.resources)

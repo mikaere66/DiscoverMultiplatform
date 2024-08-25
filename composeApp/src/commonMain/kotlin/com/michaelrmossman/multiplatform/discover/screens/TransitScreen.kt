@@ -21,9 +21,7 @@ fun TransitScreen(
     modifier: Modifier,
     onEvent: (MainListEvent) -> Unit
 ) {
-    // Logger.d("HEY") { listState.transitItems.size.toString() }
-
-    val lazyState = rememberLazyListState()
+    val lazyListState = rememberLazyListState()
 
     OnBackHandler(
         currentDestination = listState.currentNavType,
@@ -31,10 +29,10 @@ fun TransitScreen(
         startDestination = listState.startDestination
     )
 
-    // Logger.d("HEY") { listState.communityItems.size.toString() }
+    // Logger.d("HEY") { listState.transitItems.size.toString() }
     LazyColumn(
         modifier = Modifier.padding(horizontal = 6.dp),
-        state = lazyState
+        state = lazyListState
     ) {
         items(
             items = listState.transitItems,

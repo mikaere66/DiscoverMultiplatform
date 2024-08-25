@@ -31,7 +31,6 @@ fun AppSubtitle(
         NavigationType.TransitScreen ->   listState.transitItems.size
         NavigationType.WalksScreen ->     listState.routes.size
     }
-//    val sb = StringBuilder()
     val screenSub = when (listState.currentNavType) {
         NavigationType.CommunityScreen -> stringResource(
             resource = Res.string.subtitle_community
@@ -46,12 +45,11 @@ fun AppSubtitle(
             resource = Res.string.subtitle_walks
         )
     }
-//    sb.append()
     val subtitle = stringResource(
         resource = Res.string.subtitle_base,
         formatArgs = arrayOf(screenSub, quantity)
     )
-    val verticalPadding = 16.dp
+    val verticalPadding = 8.dp
 
     Row(
         verticalAlignment = Alignment.CenterVertically
@@ -59,12 +57,11 @@ fun AppSubtitle(
         Text(
             fontWeight = FontWeight.Bold,
             fontSize = fontSize,
-            modifier = Modifier
-                .padding(
-                    start = horizontalPadding,
-                    end = horizontalPadding,
-                    bottom = verticalPadding
-                ).weight(1F),
+            modifier = Modifier.padding(
+                start = horizontalPadding,
+                end = horizontalPadding,
+                bottom = verticalPadding
+            ),
             text = subtitle
         )
     }

@@ -8,4 +8,4 @@ actual fun OnBackHandler(
     currentDestination: NavigationType,
     onEvent: (MainListEvent) -> Unit,
     startDestination: NavigationType
-)
+) {}

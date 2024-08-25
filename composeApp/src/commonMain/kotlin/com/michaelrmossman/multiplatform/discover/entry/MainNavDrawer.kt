@@ -30,7 +30,8 @@ fun MainNavDrawer(
     listState: MainListState,
     navController: NavHostController,
     onClick: (NavHostController, NavigationItem, NavigationType) -> Unit,
-    onEvent: (MainListEvent) -> Unit
+    onEvent: (MainListEvent) -> Unit,
+    onNavigateUp: () -> Unit
 ) {
     Row(modifier = Modifier.padding(8.dp)) {
 
@@ -95,7 +96,8 @@ fun MainNavDrawer(
                 topBar = {
                     AppTopBar(
                         listState = listState,
-                        onEvent = onEvent
+                        onEvent = onEvent,
+                        onNavigateUp = { onNavigateUp() }
                     )
                 }
             ) { paddingValues ->
