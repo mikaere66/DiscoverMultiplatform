@@ -1,0 +1,33 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+        "extn": 0,
+        "id": 1,
+        "link": null,
+        "name": "EV Charging Stations",
+        "text": "Find an outlet nearby & recharge your Electric Vehicle"
+    },
+    {
+        "extn": 1,
+        "id": 2,
+        "link": "http://go.metroinfo.co.nz",
+        "name": "Metro Bus Network",
+        "text": "An external link to the Metro website Journey Planner"
+    },
+    {
+        "extn": 0,
+        "id": 3,
+        "link": null,
+        "name": "Mountain Bike Tracks",
+        "text": "From novice to expert, there's a track for every rider"
+    },
+    {
+        "extn": 0,
+        "id": 4,
+        "link": null,
+        "name": "Urban Cycle Routes",
+        "text": "Colour-coded cycle lanes, cycleways, and shared paths"
+    }
+  ]
+}

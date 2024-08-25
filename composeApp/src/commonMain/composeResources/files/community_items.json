@@ -1,0 +1,65 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+        "text": "Listen to interesting snippets about Christchurch history",
+        "ciId": 1,
+        "name": "Audio Stories"
+    },
+    {
+        "text": "Find out where you can safely dispose of old batteries",
+        "ciId": 2,
+        "name": "Battery Recycling"
+    },
+    {
+        "text": "View/search a list of public entities, including libraries",
+        "ciId": 3,
+        "name": "Community Facilities"
+    },
+    {
+        "text": "See places where you can (and cannot) exercise your dog",
+        "ciId": 4,
+        "name": "Dog bylaws by Area"
+    },
+    {
+        "text": "Locate public water sources for both you and your dog",
+        "ciId": 5,
+        "name": "Drinking Fountains"
+    },
+    {
+        "text": "Find free public WiFi hotspots while you're out and about",
+        "ciId": 6,
+        "name": "Free WiFi"
+    },
+    {
+        "text": "Check out the many fruit trees that you're welcome to harvest",
+        "ciId": 7,
+        "name": "Fruit Trees"
+    },
+    {
+        "text": "Find landmarks that are part of the city's vibrant history",
+        "ciId": 8,
+        "name": "Heritage Sites"
+    },
+    {
+        "text": "Public toilets and changing sheds around Christchurch",
+        "ciId": 9,
+        "name": "Public Conveniences"
+    },
+    {
+        "text": "A multitude of outdoor areas that you can filter by type",
+        "ciId": 10,
+        "name": "Public Parks"
+    },
+    {
+        "text": "Talented artists, their amazing work, and where to find it",
+        "ciId": 11,
+        "name": "Street Art"
+    },
+    {
+        "text": "Fun things to do in the city, for children and adults alike",
+        "ciId": 12,
+        "name": "Urban Play"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import com.michaelrmossman.multiplatform.discover.utils.JsonUtils
 import org.koin.dsl.module
 
 actual val databaseModule = module {
+
     single<JsonUtils> { JsonUtils() }
 
     single<DatabaseImpl> {

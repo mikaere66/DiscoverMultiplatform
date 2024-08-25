@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="ccc_light">#8012A4A4</color>
+    <color name="ccc_dark">#F8098484</color>
+    <color name="ccc_day_night">@color/ccc_dark</color><!-- See also values-night -->
+
+    <color name="splash_background">@android:color/white</color>
+
+</resources>

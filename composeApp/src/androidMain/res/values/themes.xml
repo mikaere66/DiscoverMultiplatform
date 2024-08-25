@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- For pre Android 12 devices, icon is plain black OR white, depending on
+         system's dark mode. Two diff icons are used depending on system's current
+         Light/Dark mode: ic_launcher_round for light & ic_launcher_foreground for dark -->
+    <style name="Theme.DiscoverMultiplatform.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon_pre31_day_night</item>
+        <item name="postSplashScreenTheme">@android:style/Theme.Material.Light.NoActionBar</item>
+    </style><!-- @drawable/baseline_public_daynight_24 --><!-- @mipmap/ic_launcher_round -->
+
+</resources>

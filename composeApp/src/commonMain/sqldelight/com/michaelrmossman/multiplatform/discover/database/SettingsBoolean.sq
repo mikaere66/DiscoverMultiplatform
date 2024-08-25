@@ -1,0 +1,24 @@
+import kotlin.Boolean;
+
+CREATE TABLE SettingsBoolean(
+    settingKey TEXT NOT NULL PRIMARY KEY,
+    settingVal INTEGER AS Boolean NOT NULL
+);
+
+getSettingsBooleanCount:
+SELECT COUNT(*)
+FROM SettingsBoolean;
+
+getSettingsBoolean:
+SELECT * FROM SettingsBoolean
+WHERE settingKey = ?;
+
+/**
+ * https://github.com/cashapp/sqldelight/issues/1482
+ */
+selectChanges:
+SELECT changes();
+
+updateSettingsBoolean:
+INSERT OR REPLACE INTO SettingsBoolean(settingKey, settingVal)
+VALUES (?,?);

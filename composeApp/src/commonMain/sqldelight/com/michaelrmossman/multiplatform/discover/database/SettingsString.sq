@@ -1,0 +1,17 @@
+
+CREATE TABLE SettingsString(
+    settingKey TEXT NOT NULL PRIMARY KEY,
+    settingVal TEXT NOT NULL
+);
+
+getSettingsStringCount:
+SELECT COUNT(*)
+FROM SettingsString;
+
+getSettingsString:
+SELECT * FROM SettingsString
+WHERE settingKey = ?;
+
+updateSettingsString:
+INSERT OR REPLACE INTO SettingsString(settingKey, settingVal)
+VALUES (?,?);

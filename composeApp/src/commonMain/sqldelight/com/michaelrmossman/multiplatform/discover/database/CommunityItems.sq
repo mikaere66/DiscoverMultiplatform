@@ -1,0 +1,19 @@
+
+CREATE TABLE CommunityItems(
+    ciId INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    text TEXT NOT NULL
+);
+
+getCommunityCount:
+SELECT COUNT(*)
+FROM CommunityItems;
+
+getCommunityItems:
+SELECT *
+FROM CommunityItems
+ORDER BY name;
+
+insertCommunityItem:
+INSERT INTO CommunityItems(ciId, name, text)
+VALUES (?,?,?);

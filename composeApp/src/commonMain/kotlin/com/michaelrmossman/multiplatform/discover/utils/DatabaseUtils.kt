@@ -1,5 +1,6 @@
 package com.michaelrmossman.multiplatform.discover.utils
 
+import co.touchlab.kermit.Logger
 import com.michaelrmossman.multiplatform.discover.database.Coordinates
 import com.michaelrmossman.multiplatform.discover.database.Routes
 import com.michaelrmossman.multiplatform.discover.entities.RouteKt
@@ -27,6 +28,8 @@ object DatabaseUtils {
         return RouteKt(
             route.roId,
             route.ccId,
+            route.lati,
+            route.long,
             route.area,
             route.plac,
             route.name,
@@ -34,8 +37,10 @@ object DatabaseUtils {
             route.stat,
             route.desc,
             route.dogs,
-            route.iUrl,
+            route.dist,
+            route.dura,
             route.time,
+            // routeKtCoordsList
             coordinates
         )
     }

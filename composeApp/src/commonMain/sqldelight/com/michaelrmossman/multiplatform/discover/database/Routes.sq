@@ -1,4 +1,7 @@
 
+/**
+ * city refers to distance from city centre
+ */
 CREATE TABLE Routes(
     roId INTEGER NOT NULL PRIMARY KEY,
     ccId INTEGER,
@@ -6,12 +9,14 @@ CREATE TABLE Routes(
     long REAL NOT NULL,
     area TEXT,
     plac TEXT,
-    name TEXT NOT NULL,
+    name TEXT,
     shar TEXT,
     stat TEXT,
+    city REAL NOT NULL,
     desc TEXT,
     dogs TEXT,
-    iUrl TEXT,
+    dist TEXT,
+    dura TEXT,
     time TEXT
 );
 
@@ -23,11 +28,17 @@ WHERE roId = ?;
 getRouteCount:
 SELECT COUNT(*)
 FROM Routes
-WHERE name != ?;
+WHERE name NOT LIKE ? COLLATE NOCASE;
+
+getRouteDistToCityCount:
+SELECT COUNT(*)
+FROM Routes
+WHERE city > 0.0;
 
 getRandomRouteId:
 SELECT roId
 FROM Routes
+WHERE name NOT LIKE ? COLLATE NOCASE
 ORDER BY random()
 LIMIT 1;
 
@@ -36,12 +47,43 @@ SELECT *
 FROM Routes
 ORDER BY name;
 
+/**
+ * Do not include Connector items
+ */
+getRoutesOnly:
+SELECT *
+FROM Routes
+WHERE name NOT LIKE ? COLLATE NOCASE
+ORDER BY name;
+
+getRoutesOnlyByDistance:
+SELECT *
+FROM Routes
+WHERE name NOT LIKE ? COLLATE NOCASE
+ORDER BY city;
+
 insertRoute:
-INSERT INTO Routes(roId,ccId,lati,long,area,plac,name,shar,stat,desc,dogs,iUrl,time)
-VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?);
+INSERT INTO Routes(roId,ccId,lati,long,area,plac,name,shar,stat,city,desc,dogs,dist,dura,time)
+VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+/**
+ * https://github.com/cashapp/sqldelight/issues/1482
+ */
+selectChanges:
+SELECT changes();
 
 /**
  * https://github.com/cashapp/sqldelight/issues/1482
  */
 selectLastInsertedRowId:
 SELECT last_insert_rowid();
+
+setDistToCity:
+UPDATE Routes
+SET city = ?
+WHERE roId = ?;
+
+setFaveRoute:
+UPDATE Routes
+SET time = ?
+WHERE roId = ?;

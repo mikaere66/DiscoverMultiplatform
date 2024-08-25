@@ -4,7 +4,61 @@
     <!ENTITY appSubtitle "Christchurch Botanic Gardens">
 ]><resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="random_button">Random</string>
-    <string name="random_message">Hit the Random button for 1 of %1$d routes</string>
+    <string name="app_name">Discover Christchurch</string>
+    <string name="app_subtitle">with Google Maps (showing %1$d items)</string>
+    <string name="app_faves">Your Favourites (%1$d)</string>
+    <string name="app_settings">App Settings</string>
+
+    <!-- *Bar Labels -->
+    <string name="bar_community">Community</string>
+    <string name="bar_faves">Favourites</string>
+    <string name="bar_transit">Transit</string>
+    <string name="bar_walks">Walks</string>
+
+    <!-- Content Descriptions -->
+    <string name="desc_navigate_back">Back</string>
+    <string name="desc_main_menu">Toggle main menu</string>
+    <string name="desc_sort_by_dist">Sort by distance</string>
+    <string name="desc_sort_by_name">Sort by name</string>
+
+    <!-- Favourites -->
+    <string name="faves_none">Items that you bookmark will appear here</string>
+    <string name="faves_add">Add as Favourite</string>
+    <string name="faves_rem">Remove Favourite</string>
+
+    <!-- Loading Message. Needs to be on ONE line! -->
+    <string name="loading_distance">distances</string>
+    <string name="loading_message">Loading all %1$s for the first
+        time &#8230; you should only see this message once!</string>
+
+    <!-- Main Menu -->
+    <string name="menu_random_route">Random Route</string>
+
+    <!-- Maps -->
+    <string name="route_end_point">End Point</string>
+    <string name="route_collapse_map">Collapse map</string>
+    <string name="route_expand_map">Expand map</string>
+
+    <!-- Route Lists -->
+    <string name="route_no_desc">No description available</string>
+
+    <!-- Route Screens: colons reqd ... refer
+         TextUtils.getTextWithPlaceholder -->
+    <string name="route_area">Area: %1$s</string>
+    <string name="route_desc">Description: %1$s</string>
+    <string name="route_dist">Distance: %1$s</string>
+    <string name="route_dogs">Dogs: %1$s</string>
+    <string name="route_dura">Duration: %1$s</string>
+    <string name="route_no_data">Not specified</string>
+    <string name="route_place">Place: %1$s</string>
+    <string name="route_shared">Shared use: %1$s</string>
+    <string name="route_status">Status: %1$s</string>
+
+    <!-- Subtitles -->
+    <string name="subtitle_base">%1$s (%2$d)</string>
+    <string name="subtitle_community">Community Resources</string>
+        <string name="subtitle_faves">Your Favourites</string>
+      <string name="subtitle_transit">Getting Around</string>
+        <string name="subtitle_walks">Walking Tracks</string>
 
 </resources>

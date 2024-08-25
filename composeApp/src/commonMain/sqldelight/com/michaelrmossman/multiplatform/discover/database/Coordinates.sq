@@ -1,6 +1,8 @@
 
+/**
+ *    dbId INTEGER NOT NULL PRIMARY KEY,
+ */
 CREATE TABLE Coordinates(
-    dbId INTEGER NOT NULL PRIMARY KEY,
     itId INTEGER NOT NULL,
     lati REAL NOT NULL,
     long REAL NOT NULL
@@ -15,5 +17,5 @@ SELECT * FROM Coordinates
 WHERE itId = ?;
 
 insertCoordinates:
-INSERT INTO Coordinates(dbId, itId, lati, long)
-VALUES (?,?,?,?);
+INSERT INTO Coordinates(itId, lati, long)
+VALUES (?,?,?);
