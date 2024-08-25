@@ -194,9 +194,9 @@ class MainViewModel(
                     )
                 )
                 delay(500L) /* Let progress indicator start */
-                Logger.i("TIMER START") { getLocalTime(false) }
+                // Logger.i("TIMER START") { getLocalTime(false) }
                 database.loadRouteDistances(_routeItems.value)
-                Logger.i("TIMER STOP") { getLocalTime(false) }
+                // Logger.i("TIMER STOP") { getLocalTime(false) }
             }
         }
         _pleaseWaitMessage.value = String()

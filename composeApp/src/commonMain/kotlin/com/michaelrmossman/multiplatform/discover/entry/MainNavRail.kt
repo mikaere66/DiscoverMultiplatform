@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,7 +20,10 @@ import com.michaelrmossman.multiplatform.discover.navigation.NavigationItem
 import com.michaelrmossman.multiplatform.discover.navigation.NavigationType
 import com.michaelrmossman.multiplatform.discover.components.AppTopBar
 import com.michaelrmossman.multiplatform.discover.components.NavBarIcon
+import io.github.alexzhirkevich.cupertino.adaptive.AdaptiveScaffold
+import io.github.alexzhirkevich.cupertino.adaptive.ExperimentalAdaptiveApi
 
+@OptIn(ExperimentalAdaptiveApi::class)
 @Composable
 fun MainNavRail(
     listState: MainListState,
@@ -63,7 +65,7 @@ fun MainNavRail(
             }
         }
 
-        Scaffold(
+        AdaptiveScaffold(
             modifier = Modifier.weight(1F),
             topBar = {
                 AppTopBar(

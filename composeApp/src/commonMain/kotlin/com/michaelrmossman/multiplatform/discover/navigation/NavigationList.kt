@@ -12,7 +12,7 @@ import androidx.compose.material.icons.outlined.Home
 import discovermultiplatform.composeapp.generated.resources.Res
 import discovermultiplatform.composeapp.generated.resources.bar_community
 import discovermultiplatform.composeapp.generated.resources.bar_faves
-import discovermultiplatform.composeapp.generated.resources.bar_transit
+import discovermultiplatform.composeapp.generated.resources.bar_cycling
 import discovermultiplatform.composeapp.generated.resources.bar_walks
 import org.jetbrains.compose.resources.getString
 
@@ -45,7 +45,7 @@ object NavigationList {
 //                }
             ),
             NavigationItem(
-                label = getString(Res.string.bar_transit),
+                label = getString(Res.string.bar_cycling),
                 navType = NavigationType.TransitScreen,
                 route = NavigationType.TransitScreen.name,
                 selectedIcon = Icons.Filled.ModeOfTravel,

@@ -11,9 +11,9 @@
 
     <!-- *Bar Labels -->
     <string name="bar_community">Community</string>
-    <string name="bar_faves">Favourites</string>
-    <string name="bar_transit">Transit</string>
-    <string name="bar_walks">Walks</string>
+      <string name="bar_cycling">Cycling</string>
+        <string name="bar_walks">Walks</string>
+        <string name="bar_faves">Your Faves</string>
 
     <!-- Content Descriptions -->
     <string name="desc_navigate_back">Back</string>
@@ -57,8 +57,8 @@
     <!-- Subtitles -->
     <string name="subtitle_base">%1$s (%2$d)</string>
     <string name="subtitle_community">Community Resources</string>
-        <string name="subtitle_faves">Your Favourites</string>
-      <string name="subtitle_transit">Getting Around</string>
+      <string name="subtitle_cycling">On Your Bike</string>
         <string name="subtitle_walks">Walking Tracks</string>
+        <string name="subtitle_faves">Your Favourites</string>
 
 </resources>

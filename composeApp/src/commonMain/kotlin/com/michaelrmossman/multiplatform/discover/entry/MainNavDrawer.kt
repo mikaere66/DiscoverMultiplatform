@@ -10,7 +10,6 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.PermanentNavigationDrawer
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +23,10 @@ import com.michaelrmossman.multiplatform.discover.navigation.NavigationItem
 import com.michaelrmossman.multiplatform.discover.navigation.NavigationType
 import com.michaelrmossman.multiplatform.discover.components.AppTopBar
 import com.michaelrmossman.multiplatform.discover.components.NavBarIcon
+import io.github.alexzhirkevich.cupertino.adaptive.AdaptiveScaffold
+import io.github.alexzhirkevich.cupertino.adaptive.ExperimentalAdaptiveApi
 
+@OptIn(ExperimentalAdaptiveApi::class)
 @Composable
 fun MainNavDrawer(
     listState: MainListState,
@@ -92,7 +94,7 @@ fun MainNavDrawer(
                 }
             }
         ) {
-            Scaffold(
+            AdaptiveScaffold(
                 topBar = {
                     AppTopBar(
                         listState = listState,

@@ -16,7 +16,7 @@ import discovermultiplatform.composeapp.generated.resources.Res
 import discovermultiplatform.composeapp.generated.resources.subtitle_base
 import discovermultiplatform.composeapp.generated.resources.subtitle_community
 import discovermultiplatform.composeapp.generated.resources.subtitle_faves
-import discovermultiplatform.composeapp.generated.resources.subtitle_transit
+import discovermultiplatform.composeapp.generated.resources.subtitle_cycling
 import discovermultiplatform.composeapp.generated.resources.subtitle_walks
 
 @Composable
@@ -39,7 +39,7 @@ fun AppSubtitle(
             resource = Res.string.subtitle_faves
         )
         NavigationType.TransitScreen -> stringResource(
-            resource = Res.string.subtitle_transit
+            resource = Res.string.subtitle_cycling
         )
         NavigationType.WalksScreen -> stringResource(
             resource = Res.string.subtitle_walks
