@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
 import com.michaelrmossman.multiplatform.discover.components.ListItemRoute
@@ -24,7 +23,7 @@ import io.github.alexzhirkevich.cupertino.adaptive.ExperimentalAdaptiveApi
 @OptIn(ExperimentalAdaptiveApi::class)
 @Composable
 fun WalksScreen(
-    horizontalPadding: Dp,
+    horizontalPadding: Int,
     listState: MainListState,
     modifier: Modifier,
     onEvent: (MainListEvent) -> Unit

@@ -1,11 +1,9 @@
 
-/**
- *    dbId INTEGER NOT NULL PRIMARY KEY,
- */
 CREATE TABLE Coordinates(
     itId INTEGER NOT NULL,
     lati REAL NOT NULL,
-    long REAL NOT NULL
+    long REAL NOT NULL,
+    type INTEGER NOT NULL
 );
 
 getCoordsCount:
@@ -14,8 +12,9 @@ FROM Coordinates;
 
 getCoordsById:
 SELECT * FROM Coordinates
-WHERE itId = ?;
+WHERE itId = ?
+AND type = ?;
 
 insertCoordinates:
-INSERT INTO Coordinates(itId, lati, long)
-VALUES (?,?,?);
+INSERT INTO Coordinates(itId, lati, long, type)
+VALUES (?,?,?,?);

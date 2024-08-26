@@ -15,13 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.michaelrmossman.multiplatform.discover.database.CommunityItems
 
 @Composable
 fun ListItemCommunity(
-    horizontalPadding: Dp,
+    horizontalPadding: Int,
     imageVector: ImageVector,
     item: CommunityItems,
     modifier: Modifier,
@@ -34,7 +33,7 @@ fun ListItemCommunity(
             .border(1.dp, Color.Gray, borderShape)
             .clickable(onClick = onClick),
         horizontalArrangement = Arrangement.spacedBy(
-            horizontalPadding
+            horizontalPadding.dp
         ),
         verticalAlignment = Alignment.CenterVertically
     ) {

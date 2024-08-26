@@ -3,10 +3,14 @@ package com.michaelrmossman.multiplatform.discover.database
 import co.touchlab.kermit.Logger
 import com.michaelrmossman.multiplatform.discover.entities.Coordinates
 import com.michaelrmossman.multiplatform.discover.entities.RouteKt
-import com.michaelrmossman.multiplatform.discover.features.CommunityItemCollection
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionRoutes3
-import com.michaelrmossman.multiplatform.discover.features.TransitItemCollection
+import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionCommunityItems
+import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionCycleLanes
+import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionHighlights
+import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionRoutes
+import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionTransitItems
 import com.michaelrmossman.multiplatform.discover.utils.Constants.CONNECTOR_STRING
+import com.michaelrmossman.multiplatform.discover.utils.Constants.ITEM_TYPE_CYCLE
+import com.michaelrmossman.multiplatform.discover.utils.Constants.ITEM_TYPE_ROUTE
 import com.michaelrmossman.multiplatform.discover.utils.Constants.PREFS_SORT_BY_DIST
 import com.michaelrmossman.multiplatform.discover.utils.Constants.PREFS_START_SCREEN
 import com.michaelrmossman.multiplatform.discover.utils.Constants.ROUTE_NAME_ANOMALY
@@ -22,10 +26,11 @@ internal class Database(
     )
     private val communityQueries = database.communityItemsQueries
     private val coordinateQueries = database.coordinatesQueries
-//    private val featureQueries = database.featuresQueries
-//    private val monthQueries = database.monthsQueries
+    private val cycleLanesQueries = database.cycleLanesQueries
+    private val highlightQueries = database.highlightsQueries
+    private val monthQueries = database.monthsQueries
     private val routeQueries = database.routesQueries
-//    private val seasonQueries = database.seasonsQueries
+    private val seasonQueries = database.seasonsQueries
     private val settingsBooleanQueries = database.settingsBooleanQueries
     private val settingsStringQueries = database.settingsStringQueries
     private val transitQueries = database.transitItemsQueries
@@ -66,7 +71,9 @@ internal class Database(
     }
 
     internal fun getRouteKtById(roId: Long): RouteKt {
-        val coordinates = coordinateQueries.getCoordsById(roId).executeAsList()
+        val coordinates = coordinateQueries.getCoordsById(
+            itId = roId, type = ITEM_TYPE_ROUTE
+        ).executeAsList()
         val route = routeQueries.getRouteById(roId).executeAsOne()
         return mapRouteToRouteKt(coordinates, route)
     }
@@ -138,16 +145,16 @@ internal class Database(
     }
 
     private fun insertCoordinates(
-        coordinates: List<Coordinates>, roId: Long
+        coordinates: List<Coordinates>, itId: Long, type: Long
     ) {
         coordinates.forEach { coords ->
             val lati1 = coords.latitude
             val long1 = coords.longitude
             coordinateQueries.insertCoordinates(
-                // dbId = null,
-                itId = roId,
+                itId = itId,
                 lati = lati1,
-                long = long1
+                long = long1,
+                type = type
             )
         }
     }
@@ -165,7 +172,7 @@ internal class Database(
         return result
     }
 
-    internal fun loadCommunityItems(items: CommunityItemCollection) {
+    internal fun loadCommunityItems(items: FeatureCollectionCommunityItems) {
         // Logger.d("HEY") { items.collection.size.toString() }
         items.collection.forEach { item ->
             communityQueries.insertCommunityItem(
@@ -176,7 +183,110 @@ internal class Database(
         }
     }
 
-    internal fun loadRoutes(collection: FeatureCollectionRoutes3) {
+    internal fun loadCycleLanes(collection: FeatureCollectionCycleLanes) {
+
+        collection.features.forEach { features ->
+
+            features.properties.let { properties ->
+
+                if (
+                    properties.popup != null
+                    ||
+                    properties.name != null
+                ) {
+                    var clId = 0L
+                    cycleLanesQueries.transaction {
+
+                        cycleLanesQueries.insertCycleLane(
+                            clId = null,
+                            ccId = properties.id,
+                            name = properties.popup
+                                   ?: // Note elvis op AND double-bang!!
+                                   properties.name!!,
+                            type = properties.type,
+                            stat = properties.status,
+                            cate = properties.category,
+                            rele = properties.relevance,
+                            owns = properties.ownership,
+                            dire = properties.direction,
+                            edit = properties.edited
+                        )
+                        clId = cycleLanesQueries.selectLastInsertedRowId()
+                                                .executeAsOne()
+                    }
+                    if (clId > 0L) {
+                        insertCoordinates(
+                            coordinates = features.geometry,
+                            itId = clId,
+                            type = ITEM_TYPE_CYCLE
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    internal fun loadHighlights(
+        collection: FeatureCollectionHighlights,
+        months: HashMap<Long, List<Long>>
+    ) {
+        var codeId = 0L
+        val features = collection.features
+
+        // https://stackoverflow.com/questions/65863956/sqldelight-1-4-how-insert-filled-data-generated-object-without-primarykey-id
+        seasonQueries.transaction {
+            /* Based on the first item in each asset file,
+               insert a new "season" and use its ID below
+               when inserting its features. To get the new
+               ID, this must be completed in 1 transaction */
+            seasonQueries.insertSeason(
+                coId = null,
+                /* Each and every item in the JSON files has a
+                   SeasonalCode name like "Seasonal Highlights
+                   <season>", so replace that preceding text
+                   with an empty string, e.g. Late Summer */
+                code = features[0].properties.seasonalCode.replace(
+                    // Note trailing space
+                    "Seasonal Highlights ", String()
+                )
+            )
+            codeId = seasonQueries.selectLastInsertedRowId()
+                                  .executeAsOne()
+        }
+
+        if (codeId > 0L) {
+            /* For each calendar month, create an entry
+               in the Months table with the month as its
+               Id and this codeId in its other column */
+            months[codeId]?.forEach { monthId ->
+                monthQueries.insertMonth(
+                    moId = monthId,
+                    coId = codeId
+                )
+            }
+
+            features.forEach { feature ->
+                /* Be aware that these two are reversed (by
+                   Google Maps standards) i.e. in the .json
+                   files, they appear as longitude|latitude */
+                val lati = feature.geometry.coordinates[1]
+                val long = feature.geometry.coordinates[0]
+                highlightQueries.insertHighlight(
+                    hlId = null,
+                    name = feature.properties.seasonalName,
+                    coId = codeId,
+                    stat = feature.properties.status,
+                    desc = feature.properties.description,
+                    iUrl = feature.properties.photoUrl,
+                    lati = lati,
+                    long = long,
+                    time = String()
+                )
+            }
+        }
+    }
+
+    internal fun loadRoutes(collection: FeatureCollectionRoutes) {
         /* In the JSON file, several tracks have multiple (duplicate)
            items (one even has five), so start a UNIQUE list to "keep
            track" of which tracks we've added so far; however omit
@@ -239,10 +349,12 @@ internal class Database(
                                         roId = routeQueries.selectLastInsertedRowId()
                                                            .executeAsOne()
                                     }
-
                                     if (roId > 0L) {
-                                        insertCoordinates(features.geometry, roId)
-
+                                        insertCoordinates(
+                                            coordinates = features.geometry,
+                                            itId = roId,
+                                            type = ITEM_TYPE_ROUTE
+                                        )
                                         if (propertiesName != CONNECTOR_STRING) {
                                             walkingTracks.add(propertiesName)
                                         }
@@ -257,7 +369,7 @@ internal class Database(
         Logger.i("TIMER STOP") { getLocalTime(false) }
     }
 
-    internal fun loadTransitItems(items: TransitItemCollection) {
+    internal fun loadTransitItems(items: FeatureCollectionTransitItems) {
         items.collection.forEach { item ->
             transitQueries.insertTransitItem(
                 trId = item.trId.toLong(),

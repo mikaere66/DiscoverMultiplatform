@@ -34,7 +34,7 @@ fun NavigationHost(
            Or, large-screen devices have full NavDrawer at left */
         else -> Modifier.fillMaxHeight()
     }
-    val horizontalPadding = 16.dp
+    val horizontalPadding = 16
     val itemsModifier = Modifier.padding(4.dp)
 
     Column(
@@ -42,6 +42,7 @@ fun NavigationHost(
         modifier = columnModifier.padding(paddingValues)
     ) {
         AppSubtitle(
+            horizontalPadding = horizontalPadding,
             listState = listState
         )
 

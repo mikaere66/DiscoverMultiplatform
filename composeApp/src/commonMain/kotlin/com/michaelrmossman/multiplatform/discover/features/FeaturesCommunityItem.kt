@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CommunityItems(
+data class FeaturesCommunityItem(
 
     @SerialName("ciId")
     val ciId: Int,

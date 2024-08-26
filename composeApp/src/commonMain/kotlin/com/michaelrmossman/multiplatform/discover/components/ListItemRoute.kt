@@ -17,20 +17,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.michaelrmossman.multiplatform.discover.database.Routes
 import com.michaelrmossman.multiplatform.discover.theme.green
 import com.michaelrmossman.multiplatform.discover.theme.orange
 import com.michaelrmossman.multiplatform.discover.utils.getDayNightIconColor
-import com.michaelrmossman.multiplatform.discover.utils.Constants.ROUTE_DIST_CUTOFF
+import com.michaelrmossman.multiplatform.discover.utils.Constants.ROUTE_CITY_CUTOFF
 import discovermultiplatform.composeapp.generated.resources.Res
 import discovermultiplatform.composeapp.generated.resources.route_no_desc
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ListItemRoute(
-    horizontalPadding: Dp,
+    horizontalPadding: Int,
     modifier: Modifier,
     onClick: () -> Unit,
     route: Routes
@@ -42,7 +41,7 @@ fun ListItemRoute(
             .border(1.dp, Color.Gray, borderShape)
             .clickable(onClick = onClick),
         horizontalArrangement = Arrangement.spacedBy(
-            horizontalPadding
+            horizontalPadding.dp
         ),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -50,7 +49,7 @@ fun ListItemRoute(
             imageVector = Icons.Outlined.Route,
             tint = when (route.city) {
                 0.0 -> getDayNightIconColor()
-                else -> when (route.city < ROUTE_DIST_CUTOFF) {
+                else -> when (route.city < ROUTE_CITY_CUTOFF) {
                     true -> green /* colours from app theme */
                     else -> orange
                 }

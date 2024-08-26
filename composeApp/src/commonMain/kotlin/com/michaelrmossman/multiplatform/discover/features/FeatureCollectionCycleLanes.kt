@@ -4,8 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CommunityItemCollection(
+data class FeatureCollectionCycleLanes(
+
+    @SerialName("type")
+    val type: String,
 
     @SerialName("features")
-    val collection: List<CommunityItems>
+    val features: List<FeaturesCycleLane>
 )

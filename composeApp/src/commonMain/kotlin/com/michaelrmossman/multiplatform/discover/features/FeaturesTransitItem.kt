@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TransitItems(
+data class FeaturesTransitItem(
 
     @SerialName("id")
     val trId: Int,

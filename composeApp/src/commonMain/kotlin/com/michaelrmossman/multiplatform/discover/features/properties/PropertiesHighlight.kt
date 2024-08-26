@@ -1,10 +1,10 @@
-package com.michaelrmossman.multiplatform.discover.entities.points.highlights
+package com.michaelrmossman.multiplatform.discover.features.properties
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Properties(
+data class PropertiesHighlight(
 
     @SerialName("SeasonalName")
     val seasonalName: String,

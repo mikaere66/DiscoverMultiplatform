@@ -1,14 +1,14 @@
-package com.michaelrmossman.multiplatform.discover.entities.points.highlights
+package com.michaelrmossman.multiplatform.discover.features
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FeatureCollectionHighlights(
+data class FeatureCollectionRoutes(
 
     @SerialName("type")
     val type: String,
 
     @SerialName("features")
-    val features: List<Feature>
+    val features: List<FeaturesRoute>
 )

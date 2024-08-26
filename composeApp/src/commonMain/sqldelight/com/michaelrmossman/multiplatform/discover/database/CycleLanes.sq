@@ -1,0 +1,23 @@
+
+CREATE TABLE CycleLanes (
+    clId INTEGER NOT NULL PRIMARY KEY,
+    ccId INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    type TEXT,
+    stat TEXT NOT NULL,
+    cate TEXT NOT NULL,
+    rele TEXT NOT NULL,
+    owns TEXT NOT NULL,
+    dire TEXT,
+    edit TEXT NOT NULL
+);
+
+insertCycleLane:
+INSERT INTO CycleLanes(clId,ccId,name,type,stat,cate,rele,owns,dire,edit)
+VALUES(?,?,?,?,?,?,?,?,?,?);
+
+/**
+ * https://github.com/cashapp/sqldelight/issues/1482
+ */
+selectLastInsertedRowId:
+SELECT last_insert_rowid();

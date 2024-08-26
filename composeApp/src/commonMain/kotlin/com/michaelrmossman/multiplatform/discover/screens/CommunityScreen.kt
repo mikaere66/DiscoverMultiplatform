@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.michaelrmossman.multiplatform.discover.components.ListItemCommunity
 import com.michaelrmossman.multiplatform.discover.navigation.OnBackHandler
@@ -16,7 +15,7 @@ import com.michaelrmossman.multiplatform.discover.utils.Constants.communityIcons
 
 @Composable
 fun CommunityScreen(
-    horizontalPadding: Dp,
+    horizontalPadding: Int,
     listState: MainListState,
     modifier: Modifier,
     onEvent: (MainListEvent) -> Unit

@@ -2,10 +2,14 @@ package com.michaelrmossman.multiplatform.discover.database
 
 import co.touchlab.kermit.Logger
 import com.michaelrmossman.multiplatform.discover.entities.RouteKt
+import com.michaelrmossman.multiplatform.discover.utils.Constants.JSON_FILENAME_COMMUNITY
+import com.michaelrmossman.multiplatform.discover.utils.Constants.JSON_FILENAME_CYCLE_LANES
+import com.michaelrmossman.multiplatform.discover.utils.Constants.JSON_FILENAME_ROUTES
+import com.michaelrmossman.multiplatform.discover.utils.Constants.JSON_FILENAME_TRANSIT
+import com.michaelrmossman.multiplatform.discover.utils.Constants.seasonFilenames
+import com.michaelrmossman.multiplatform.discover.utils.DatabaseUtils.getSeasonMonths
 import com.michaelrmossman.multiplatform.discover.utils.JsonUtils
 import com.michaelrmossman.multiplatform.discover.utils.getDistanceTo
-import discovermultiplatform.composeapp.generated.resources.Res
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 class DatabaseImpl(
     databaseDriverFactory: DatabaseDriverFactory,
@@ -107,17 +111,32 @@ class DatabaseImpl(
 
     @Throws(Exception::class)
     suspend fun loadCommunityItems() {
-        val fullPath = "files".plus(
-            "/"
-        ).plus("community_items.json")
-        /* Annotation reqd for readBytes.
-           Read each file as a ByteArray */
-        @OptIn(ExperimentalResourceApi::class)
-        val bytes = Res.readBytes(fullPath)
-        /* ... then decode the bytes to JSON */
-        val jsonString = bytes.decodeToString()
+        val jsonString = json.getJsonString(JSON_FILENAME_COMMUNITY)
         json.parseCommunityFile(jsonString).also { items ->
             database.loadCommunityItems(items)
+        }
+    }
+
+    @Throws(Exception::class)
+    suspend fun loadCycleLanes() {
+        val jsonString = json.getJsonString(JSON_FILENAME_CYCLE_LANES)
+        json.parseCycleLanesFile(jsonString).also { collection ->
+            database.loadCycleLanes(collection)
+        }
+    }
+
+    @Throws(Exception::class)
+    suspend fun loadHighlights() {
+        /* This list maps one or more calendar
+           months to a particular (CCC) season */
+        val months = getSeasonMonths()
+        /* Loop through the seven asset files to
+           import each feature into the database */
+        seasonFilenames.forEach { filename ->
+            val jsonString = json.getJsonString(filename)
+            json.parseHighlightsFile(jsonString).also { collection ->
+                database.loadHighlights(collection, months)
+            }
         }
     }
 
@@ -132,15 +151,7 @@ class DatabaseImpl(
 
     @Throws(Exception::class)
     suspend fun loadRoutes() {
-        val fullPath = "files".plus(
-            "/"
-        ).plus("walking_tracks_2.geojson")
-        /* Annotation reqd for readBytes.
-           Read each file as a ByteArray */
-        @OptIn(ExperimentalResourceApi::class)
-        val bytes = Res.readBytes(fullPath)
-        /* ... then decode the bytes to JSON */
-        val jsonString = bytes.decodeToString()
+        val jsonString = json.getJsonString(JSON_FILENAME_ROUTES)
         json.parseRoutesFile(jsonString).also { collection ->
             database.loadRoutes(collection)
         }
@@ -148,15 +159,7 @@ class DatabaseImpl(
 
     @Throws(Exception::class)
     suspend fun loadTransitItems() {
-        val fullPath = "files".plus(
-            "/"
-        ).plus("transit_items.json")
-        /* Annotation reqd for readBytes.
-           Read each file as a ByteArray */
-        @OptIn(ExperimentalResourceApi::class)
-        val bytes = Res.readBytes(fullPath)
-        /* ... then decode the bytes to JSON */
-        val jsonString = bytes.decodeToString()
+        val jsonString = json.getJsonString(JSON_FILENAME_TRANSIT)
         json.parseTransitFile(jsonString).also { items ->
             database.loadTransitItems(items)
         }

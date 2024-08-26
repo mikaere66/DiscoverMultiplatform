@@ -15,7 +15,7 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonArray
 
-object GeometrySerializer3: KSerializer<List<Coordinates>> {
+object GeometrySerializer: KSerializer<List<Coordinates>> {
 
     override val descriptor: SerialDescriptor
         get() = PrimitiveSerialDescriptor("type", PrimitiveKind.STRING)

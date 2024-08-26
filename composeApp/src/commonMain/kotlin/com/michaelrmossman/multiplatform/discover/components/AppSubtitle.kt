@@ -16,15 +16,16 @@ import discovermultiplatform.composeapp.generated.resources.Res
 import discovermultiplatform.composeapp.generated.resources.subtitle_base
 import discovermultiplatform.composeapp.generated.resources.subtitle_community
 import discovermultiplatform.composeapp.generated.resources.subtitle_faves
-import discovermultiplatform.composeapp.generated.resources.subtitle_cycling
+import discovermultiplatform.composeapp.generated.resources.subtitle_transit
 import discovermultiplatform.composeapp.generated.resources.subtitle_walks
 
 @Composable
 fun AppSubtitle(
+    horizontalPadding: Int,
     listState: MainListState
 ) {
-    val fontSize = 18.sp
-    val horizontalPadding = 16.dp
+    val fontSize = 18
+    // val horizontalPadding = 16.dp
     val quantity = when (listState.currentNavType) {
         NavigationType.CommunityScreen -> listState.communityItems.size
         NavigationType.FavesScreen ->     listState.favourites.size
@@ -39,7 +40,7 @@ fun AppSubtitle(
             resource = Res.string.subtitle_faves
         )
         NavigationType.TransitScreen -> stringResource(
-            resource = Res.string.subtitle_cycling
+            resource = Res.string.subtitle_transit
         )
         NavigationType.WalksScreen -> stringResource(
             resource = Res.string.subtitle_walks
@@ -49,18 +50,18 @@ fun AppSubtitle(
         resource = Res.string.subtitle_base,
         formatArgs = arrayOf(screenSub, quantity)
     )
-    val verticalPadding = 8.dp
+    val verticalPadding = 8
 
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             fontWeight = FontWeight.Bold,
-            fontSize = fontSize,
+            fontSize = fontSize.sp,
             modifier = Modifier.padding(
-                start = horizontalPadding,
-                end = horizontalPadding,
-                bottom = verticalPadding
+                start = horizontalPadding.dp,
+                end = horizontalPadding.dp,
+                bottom = verticalPadding.dp
             ),
             text = subtitle
         )

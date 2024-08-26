@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.michaelrmossman.multiplatform.discover.navigation.OnBackHandler
 import com.michaelrmossman.multiplatform.discover.presentation.MainListEvent
@@ -29,7 +28,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun FavesScreen(
-    horizontalPadding: Dp,
+    horizontalPadding: Int,
     listState: MainListState,
     modifier: Modifier,
     onEvent: (MainListEvent) -> Unit

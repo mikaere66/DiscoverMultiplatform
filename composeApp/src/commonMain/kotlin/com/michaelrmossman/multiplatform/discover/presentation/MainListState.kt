@@ -5,7 +5,6 @@ import com.michaelrmossman.multiplatform.discover.database.CommunityItems
 import com.michaelrmossman.multiplatform.discover.database.Routes
 import com.michaelrmossman.multiplatform.discover.database.TransitItems
 import com.michaelrmossman.multiplatform.discover.entities.RouteKt
-import com.michaelrmossman.multiplatform.discover.entities.points.highlights.Highlight
 import com.michaelrmossman.multiplatform.discover.navigation.NavigationItem
 import com.michaelrmossman.multiplatform.discover.navigation.NavigationType
 import kotlinx.coroutines.flow.MutableStateFlow

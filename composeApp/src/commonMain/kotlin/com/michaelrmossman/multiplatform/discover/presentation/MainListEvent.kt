@@ -2,7 +2,6 @@ package com.michaelrmossman.multiplatform.discover.presentation
 
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import com.michaelrmossman.multiplatform.discover.database.Routes
-import com.michaelrmossman.multiplatform.discover.entities.points.highlights.Highlight
 import com.michaelrmossman.multiplatform.discover.navigation.NavigationType
 
 sealed interface MainListEvent {

@@ -47,12 +47,18 @@ object Constants {
     const val FAVE_DATE_FORMAT = "d MMM, y"
     const val FAVE_TIME_FORMAT_LONG = "H:mm:ss" // Debug
     const val FAVE_TIME_FORMAT_SHORT = "h:mm a" // Faves
+    const val ITEM_TYPE_CYCLE = 1L
+    const val ITEM_TYPE_ROUTE = 2L
+    const val JSON_FILENAME_COMMUNITY =   "community_items.json"
+    const val JSON_FILENAME_CYCLE_LANES = "cycle_lanes.geojson"
+    const val JSON_FILENAME_ROUTES =      "walking_tracks.geojson"
+    const val JSON_FILENAME_TRANSIT =     "transit_items.json"
     const val LAT_LNG_BOUNDS_PADDING = 140
     /* Colombo|Gloucester St (Tūranga) */
     const val LOCATION_CITY_CENTRE_LAT = -43.529851
     const val LOCATION_CITY_CENTRE_LNG = 172.636618
     /* Nga Puna Wai is 5.5km from city */
-    const val ROUTE_DIST_CUTOFF = 5500.0
+    const val ROUTE_CITY_CUTOFF = 5500.0
     /* Refer to comment in Database.kt */
     const val ROUTE_NAME_ANOMALY = "woodhills"
     const val SHARED_NO_STRING = "No"

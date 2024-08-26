@@ -12,7 +12,7 @@ import androidx.compose.material.icons.outlined.Home
 import discovermultiplatform.composeapp.generated.resources.Res
 import discovermultiplatform.composeapp.generated.resources.bar_community
 import discovermultiplatform.composeapp.generated.resources.bar_faves
-import discovermultiplatform.composeapp.generated.resources.bar_cycling
+import discovermultiplatform.composeapp.generated.resources.bar_transit
 import discovermultiplatform.composeapp.generated.resources.bar_walks
 import org.jetbrains.compose.resources.getString
 
@@ -34,18 +34,7 @@ object NavigationList {
 //                }
             ),
             NavigationItem(
-                label = getString(Res.string.bar_faves),
-                navType = NavigationType.FavesScreen,
-                route = NavigationType.FavesScreen.name,
-                selectedIcon = Icons.Filled.Bookmarks,
-                unselectedIcon = Icons.Outlined.Bookmarks
-//                icon = when (iSiOS) {
-//                    true -> CupertinoIcons.Outlined.Bicycle
-//                    else -> Icons.Outlined.PedalBike
-//                }
-            ),
-            NavigationItem(
-                label = getString(Res.string.bar_cycling),
+                label = getString(Res.string.bar_transit),
                 navType = NavigationType.TransitScreen,
                 route = NavigationType.TransitScreen.name,
                 selectedIcon = Icons.Filled.ModeOfTravel,
@@ -64,6 +53,17 @@ object NavigationList {
 //                icon = when (iSiOS) {
 //                    true -> CupertinoIcons.Outlined.FigureWalk
 //                    else -> Icons.AutoMirrored.Outlined.DirectionsWalk
+//                }
+            ),
+            NavigationItem(
+                label = getString(Res.string.bar_faves),
+                navType = NavigationType.FavesScreen,
+                route = NavigationType.FavesScreen.name,
+                selectedIcon = Icons.Filled.Bookmarks,
+                unselectedIcon = Icons.Outlined.Bookmarks
+//                icon = when (iSiOS) {
+//                    true -> CupertinoIcons.Outlined.Bicycle
+//                    else -> Icons.Outlined.PedalBike
 //                }
             )
         // Update boolean "selected" based on current nav destination id

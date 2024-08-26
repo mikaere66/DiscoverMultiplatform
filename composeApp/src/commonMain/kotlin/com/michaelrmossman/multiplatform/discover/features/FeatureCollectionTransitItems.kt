@@ -4,8 +4,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TransitItemCollection(
+data class FeatureCollectionTransitItems(
 
     @SerialName("features")
-    val collection: List<TransitItems>
+    val collection: List<FeaturesTransitItem>
 )

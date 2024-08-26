@@ -72,6 +72,29 @@ class MainViewModel(
         5000L
     ) , MainListState())
 
+    suspend fun getCoordsCount(): Long {
+        return database.getCoordsCount()
+    }
+
+    suspend fun getRouteById(roId: Long): Routes {
+        return database.getRouteById(roId)
+    }
+
+    suspend fun getRouteKtById(roId: Long): RouteKt {
+        return database.getRouteKtById(roId)
+    }
+
+    suspend fun getRouteCount(): Long {
+        return database.getRouteCount()
+    }
+
+    suspend fun getRoutes(): List<Routes> {
+        return database.getRoutes(
+            byDistance = _sortRoutesByDistance,
+            connectors = false
+        )
+    }
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val defaultSortRoutesByDist = false
@@ -115,29 +138,6 @@ class MainViewModel(
             }
             onEvent(MainListEvent.SetCurrentNavType(startDestination))
         }
-    }
-
-    suspend fun getCoordsCount(): Long {
-        return database.getCoordsCount()
-    }
-
-    suspend fun getRouteById(roId: Long): Routes {
-        return database.getRouteById(roId)
-    }
-
-    suspend fun getRouteKtById(roId: Long): RouteKt {
-        return database.getRouteKtById(roId)
-    }
-
-    suspend fun getRouteCount(): Long {
-        return database.getRouteCount()
-    }
-
-    suspend fun getRoutes(): List<Routes> {
-        return database.getRoutes(
-            byDistance = _sortRoutesByDistance,
-            connectors = false
-        )
     }
 
     private suspend fun loadCommunityItems() {

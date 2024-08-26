@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Properties3(
+data class PropertiesRoute(
 
     @SerialName("routearea")
     val area: String? = null,

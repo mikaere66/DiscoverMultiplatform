@@ -4,7 +4,6 @@ import co.touchlab.kermit.Logger
 import com.michaelrmossman.multiplatform.discover.database.Coordinates
 import com.michaelrmossman.multiplatform.discover.database.Routes
 import com.michaelrmossman.multiplatform.discover.entities.RouteKt
-import com.michaelrmossman.multiplatform.discover.entities.points.highlights.Highlight
 
 object DatabaseUtils {
 
@@ -45,29 +44,29 @@ object DatabaseUtils {
         )
     }
 
-    fun mapFeaturesToHighlights(
-        feId: Long,
-        name: String,
-        coId: Long,
-        stat: String,
-        desc: String,
-        iUrl: String?,
-        lati: Double,
-        long: Double,
-        // posi: String,
-        time: String?
-    ) : Highlight {
-        return Highlight(
-            shId = feId.toInt(),
-            name = name,
-            coId = coId.toInt(),
-            stat = stat,
-            desc = desc,
-            iUrl = iUrl,
-            lati = lati,
-            long = long,
-            // posi = posi,
-            time = time
-        )
-    }
+//    fun mapFeaturesToHighlights(
+//        feId: Long,
+//        name: String,
+//        coId: Long,
+//        stat: String,
+//        desc: String,
+//        iUrl: String?,
+//        lati: Double,
+//        long: Double,
+//        // posi: String,
+//        time: String?
+//    ) : Highlight {
+//        return Highlight(
+//            shId = feId.toInt(),
+//            name = name,
+//            coId = coId.toInt(),
+//            stat = stat,
+//            desc = desc,
+//            iUrl = iUrl,
+//            lati = lati,
+//            long = long,
+//            // posi = posi,
+//            time = time
+//        )
+//    }
 }
