@@ -23,7 +23,6 @@ import com.michaelrmossman.multiplatform.discover.theme.AppTheme
 @Composable
 fun MainEntryPoint() {
 
-
     AppTheme {
 
         Surface(Modifier.fillMaxSize()) {

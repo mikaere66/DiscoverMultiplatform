@@ -51,15 +51,15 @@ class MainViewModel(
 
     private val _state = MutableStateFlow(MainListState())
     val state = combine(
-        _communityItems,
+//        _communityItems,
         _currentNavType,
         _pleaseWaitMessage,
         _routeItems,
         _state,
         _transitItems
-    ) { cItems, navType, message, routes, state, tItems ->
+    ) { navType, message, routes, state, tItems -> // cItems,
         state.copy(
-            communityItems = cItems,
+//            communityItems = cItems,
             currentNavType = navType,
             navItems = getBottomNavItems(
                 _currentNavType.value
@@ -148,7 +148,12 @@ class MainViewModel(
                 database.loadCommunityItems()
             }
 
-            _communityItems.value = database.getCommunityItems()
+//            _communityItems.value = database.getCommunityItems()
+            _state.update { state ->
+                state.copy(
+                    communityItems = database.getCommunityItems()
+                )
+            }
         }
     }
 
