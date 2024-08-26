@@ -148,10 +148,12 @@ class MainViewModel(
                 database.loadCommunityItems()
             }
 
-//            _communityItems.value = database.getCommunityItems()
+            // _communityItems.value = database.getCommunityItems()
+            val communityItems = database.getCommunityItems()
+            Logger.i("HEY") { communityItems.size.toString() }
             _state.update { state ->
                 state.copy(
-                    communityItems = database.getCommunityItems()
+                    communityItems = communityItems
                 )
             }
         }
