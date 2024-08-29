@@ -18,17 +18,18 @@ import com.michaelrmossman.multiplatform.discover.navigation.NavigationType
 import com.michaelrmossman.multiplatform.discover.presentation.MainListEvent
 import com.michaelrmossman.multiplatform.discover.presentation.MainViewModel
 import com.michaelrmossman.multiplatform.discover.theme.AppTheme
+import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
-fun MainEntryPoint() {
+fun MainEntryPoint(viewModel: MainViewModel = koinInject()) {
 
     AppTheme {
 
         Surface(Modifier.fillMaxSize()) {
 
             val windowSizeClass: WindowSizeClass = calculateWindowSizeClass()
-            val viewModel = koinViewModel<MainViewModel>()
+            // val viewModel = koinViewModel<MainViewModel>()
             viewModel.onEvent(
                 MainListEvent.SetWindowWidthSizeClass(
                     windowSizeClass.widthSizeClass
