@@ -10,6 +10,7 @@ import com.michaelrmossman.multiplatform.discover.utils.Constants.seasonFilename
 import com.michaelrmossman.multiplatform.discover.utils.DatabaseUtils.getSeasonMonths
 import com.michaelrmossman.multiplatform.discover.utils.JsonUtils
 import com.michaelrmossman.multiplatform.discover.utils.getDistanceTo
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 
 class DatabaseImpl(
     databaseDriverFactory: DatabaseDriverFactory,
@@ -110,6 +111,7 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
+    @NativeCoroutines
     suspend fun loadCommunityItems() {
         val jsonString = json.getJsonString(JSON_FILENAME_COMMUNITY)
         json.parseCommunityFile(jsonString).also { items ->
@@ -118,6 +120,7 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
+    @NativeCoroutines
     suspend fun loadCycleLanes() {
         val jsonString = json.getJsonString(JSON_FILENAME_CYCLE_LANES)
         json.parseCycleLanesFile(jsonString).also { collection ->
@@ -126,6 +129,7 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
+    @NativeCoroutines
     suspend fun loadHighlights() {
         /* This list maps one or more calendar
            months to a particular (CCC) season */
@@ -141,6 +145,7 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
+    @NativeCoroutines
     suspend fun loadRouteDistances(routes: List<Routes>) {
         routes.forEach { route ->
             val distance = getDistanceTo(route.lati, route.long)
@@ -150,6 +155,7 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
+    @NativeCoroutines
     suspend fun loadRoutes() {
         val jsonString = json.getJsonString(JSON_FILENAME_ROUTES)
         json.parseRoutesFile(jsonString).also { collection ->
@@ -158,6 +164,7 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
+    @NativeCoroutines
     suspend fun loadTransitItems() {
         val jsonString = json.getJsonString(JSON_FILENAME_TRANSIT)
         json.parseTransitFile(jsonString).also { items ->

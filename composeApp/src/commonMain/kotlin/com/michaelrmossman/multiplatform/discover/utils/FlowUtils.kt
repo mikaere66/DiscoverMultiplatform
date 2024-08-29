@@ -1,11 +1,13 @@
 package com.michaelrmossman.multiplatform.discover.utils
 
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.Flow
 
 object FlowUtils {
 
     // https://stackoverflow.com/questions/65356805/kotlin-flow-why-the-function-combine-can-only-take-maximum-5-flows-in-paramet
+    @NativeCoroutines
     inline fun <T1, T2, T3, T4, T5, T6, R> combine(
         flow: Flow<T1>,
         flow2: Flow<T2>,

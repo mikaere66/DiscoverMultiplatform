@@ -5,6 +5,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
 import co.touchlab.kermit.Logger
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import discovermultiplatform.composeapp.generated.resources.Res
 import discovermultiplatform.composeapp.generated.resources.route_no_data
 import org.jetbrains.compose.resources.getString
@@ -53,6 +54,7 @@ fun getTextWithPlaceholder(
 /* This is a temp workaround for the new JetBrains
    resources API, where line breaks and indents
    within string resources show as-is in the UI */
+@NativeCoroutines
 suspend fun getTrimmedString(
     resource: StringResource, vararg formatArgs: Any
 ) : String {

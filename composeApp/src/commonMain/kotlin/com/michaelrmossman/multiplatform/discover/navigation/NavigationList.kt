@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material.icons.outlined.ModeOfTravel
 import androidx.compose.material.icons.outlined.Home
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import discovermultiplatform.composeapp.generated.resources.Res
 import discovermultiplatform.composeapp.generated.resources.bar_community
 import discovermultiplatform.composeapp.generated.resources.bar_faves
@@ -18,6 +19,7 @@ import org.jetbrains.compose.resources.getString
 
 object NavigationList {
 
+    @NativeCoroutines
     suspend fun getBottomNavItems(
         currentDestination: NavigationType
     ) : List<NavigationItem> {

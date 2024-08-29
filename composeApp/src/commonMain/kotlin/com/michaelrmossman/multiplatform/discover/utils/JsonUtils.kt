@@ -5,12 +5,14 @@ import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionCycl
 import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionRoutes
 import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionTransitItems
 import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionHighlights
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import discovermultiplatform.composeapp.generated.resources.Res
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 class JsonUtils {
 
+    @NativeCoroutines
     suspend fun getJsonString(filename: String): String {
         val fullPath = "files".plus(
             "/"

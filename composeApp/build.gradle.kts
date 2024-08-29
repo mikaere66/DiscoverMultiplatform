@@ -11,9 +11,9 @@ plugins {
     alias(libs.plugins.kspPlugin)
     alias(libs.plugins.nativeCoroutines)
 
-    alias(libs.plugins.secretsGradle) version libs.versions.secretsGradle.get()
+    alias(libs.plugins.secretsGradle) // version libs.versions.secretsGradle.get()
 
-    alias(libs.plugins.sqlDelight) version libs.versions.sqlDelight.get()
+    alias(libs.plugins.sqlDelight) // version libs.versions.sqlDelight.get()
 }
 
 kotlin {
@@ -76,7 +76,7 @@ kotlin {
             implementation(libs.kermit.the.log)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
+            // implementation(libs.koin.compose.viewmodel)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.material3.window)

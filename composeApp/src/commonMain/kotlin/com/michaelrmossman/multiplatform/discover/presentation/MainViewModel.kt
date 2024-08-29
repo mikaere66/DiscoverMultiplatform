@@ -31,38 +31,38 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 
 class MainViewModel(
-    private val database: DatabaseImpl
+    val database: DatabaseImpl
 ) : ViewModel() {
 
     @NativeCoroutines
-    private var _communityItems = MutableStateFlow<List<CommunityItems>>(
+    var _communityItems = MutableStateFlow<List<CommunityItems>>(
         viewModelScope, value = listOf()
     )
 
     @NativeCoroutines
-    private var _currentNavType = MutableStateFlow(
+    var _currentNavType = MutableStateFlow(
         viewModelScope, value = NavigationType.CommunityScreen
     )
 
     @NativeCoroutines
-    private var _pleaseWaitMessage = MutableStateFlow(
+    var _pleaseWaitMessage = MutableStateFlow(
         viewModelScope, value = String()
     )
 
     @NativeCoroutines
-    private var _routeItems = MutableStateFlow<List<Routes>>(
+    var _routeItems = MutableStateFlow<List<Routes>>(
         viewModelScope, value = listOf()
     )
 
     private var _sortRoutesByDistance = false
 
     @NativeCoroutines
-    private var _transitItems = MutableStateFlow<List<TransitItems>>(
+    var _transitItems = MutableStateFlow<List<TransitItems>>(
         viewModelScope, value = listOf()
     )
 
     @NativeCoroutinesState
-    private val _state = MutableStateFlow(
+    val _state = MutableStateFlow(
         viewModelScope, value = MainListState()
     )
     @NativeCoroutinesState
@@ -116,7 +116,7 @@ class MainViewModel(
         )
     }
 
-    // TODO: getCount Crash?
+    // @NativeCoroutines
     init {
         viewModelScope.coroutineScope.launch(Dispatchers.IO) {
             val defaultSortRoutesByDist = false
@@ -163,7 +163,7 @@ class MainViewModel(
     }
 
     @NativeCoroutines
-    private suspend fun loadCommunityItems() {
+    suspend fun loadCommunityItems() {
 
         if (_communityItems.value.isEmpty()) {
 
@@ -176,7 +176,7 @@ class MainViewModel(
     }
 
     @NativeCoroutines
-    private suspend fun loadRoutes() {
+    suspend fun loadRoutes() {
 
         if (_routeItems.value.isEmpty()) {
 
@@ -204,7 +204,7 @@ class MainViewModel(
     }
 
     @NativeCoroutines
-    private suspend fun loadRouteDistances() {
+    suspend fun loadRouteDistances() {
 
         if (_sortRoutesByDistance) {
 
@@ -233,7 +233,7 @@ class MainViewModel(
     }
 
     @NativeCoroutines
-    private suspend fun loadTransitItems() {
+    suspend fun loadTransitItems() {
 
         if (_transitItems.value.isEmpty()) {
 
