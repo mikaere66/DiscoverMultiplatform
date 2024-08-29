@@ -6,12 +6,11 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
 
-    // alias(libs.plugins.kotlinKapt)
-    // alias(libs.plugins.kotlinParcelize)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.sqlDelight) version libs.versions.sqlDelight.get()
 
     alias(libs.plugins.secretsGradle) version libs.versions.secretsGradle.get()
+    alias(libs.plugins.touchlabSkie)
 }
 
 kotlin {
@@ -47,14 +46,12 @@ kotlin {
             implementation(libs.androidx.activity.compose)
 
             implementation(libs.androidx.compose.material3)
-            // implementation(libs.androidx.compose.material3.window)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
             implementation(libs.androidx.core.splashscreen)
             implementation(libs.sqldelight.driver.android)
 
             implementation(libs.accompanist.permissions)
-            // implementation(libs.play.services.location)
             implementation(libs.maps.compose)
             implementation(libs.play.services.maps)
         }
@@ -66,16 +63,9 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.compose.material.icons.extended)
 
-            // implementation(platform(libs.androidx.compose.bom))
-            // implementation(libs.androidx.compose.material3)
-            // implementation(libs.androidx.compose.material3.window)
-            // implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
-            // implementation(libs.androidx.navigation)
             api(libs.moko.mvvm.core)
             api(libs.moko.mvvm.flow)
-            // implementation(libs.coil)
-            // implementation(libs.coil.network.ktor)
             implementation(libs.compose.imageloader)
             implementation(libs.cupertino.adaptive)
             implementation(libs.cupertino.icons.extended)

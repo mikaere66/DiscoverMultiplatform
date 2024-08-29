@@ -1,7 +1,7 @@
 package com.michaelrmossman.multiplatform.discover.presentation
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import dev.icerock.moko.mvvm.flow.cStateFlow
+import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import co.touchlab.kermit.Logger
 import com.michaelrmossman.multiplatform.discover.database.CommunityItems
 import com.michaelrmossman.multiplatform.discover.database.DatabaseImpl
@@ -70,7 +70,7 @@ class MainViewModel(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(
         5000L
-    ) , MainListState())
+    ) , MainListState()).cStateFlow()
 
     suspend fun getCoordsCount(): Long {
         return database.getCoordsCount()
@@ -95,6 +95,7 @@ class MainViewModel(
         )
     }
 
+    // TODO: getCount Crash?
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val defaultSortRoutesByDist = false
