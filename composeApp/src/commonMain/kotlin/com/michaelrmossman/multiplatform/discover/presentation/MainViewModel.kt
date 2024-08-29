@@ -1,7 +1,5 @@
 package com.michaelrmossman.multiplatform.discover.presentation
 
-import dev.icerock.moko.mvvm.flow.cStateFlow
-import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import co.touchlab.kermit.Logger
 import com.michaelrmossman.multiplatform.discover.database.CommunityItems
 import com.michaelrmossman.multiplatform.discover.database.DatabaseImpl
@@ -14,17 +12,21 @@ import com.michaelrmossman.multiplatform.discover.utils.FlowUtils.combine
 import com.michaelrmossman.multiplatform.discover.utils.getLocalDate
 import com.michaelrmossman.multiplatform.discover.utils.getLocalTime
 import com.michaelrmossman.multiplatform.discover.utils.getTrimmedString
-import discovermultiplatform.composeapp.generated.resources.Res
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
+import com.rickclephas.kmp.observableviewmodel.coroutineScope
+import com.rickclephas.kmp.observableviewmodel.stateIn
 import discovermultiplatform.composeapp.generated.resources.loading_distance
 import discovermultiplatform.composeapp.generated.resources.loading_message
+import discovermultiplatform.composeapp.generated.resources.Res
 import discovermultiplatform.composeapp.generated.resources.subtitle_walks
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 
@@ -32,24 +34,38 @@ class MainViewModel(
     private val database: DatabaseImpl
 ) : ViewModel() {
 
-    private var _communityItems: MutableStateFlow<List<CommunityItems>> =
-        MutableStateFlow(value = listOf())
-
-    private var _currentNavType = MutableStateFlow(
-        value = NavigationType.CommunityScreen
+    @NativeCoroutines
+    private var _communityItems = MutableStateFlow<List<CommunityItems>>(
+        viewModelScope, value = listOf()
     )
 
-    private var _pleaseWaitMessage = MutableStateFlow(String())
+    @NativeCoroutines
+    private var _currentNavType = MutableStateFlow(
+        viewModelScope, value = NavigationType.CommunityScreen
+    )
 
-    private var _routeItems: MutableStateFlow<List<Routes>> =
-        MutableStateFlow(value = listOf())
+    @NativeCoroutines
+    private var _pleaseWaitMessage = MutableStateFlow(
+        viewModelScope, value = String()
+    )
+
+    @NativeCoroutines
+    private var _routeItems = MutableStateFlow<List<Routes>>(
+        viewModelScope, value = listOf()
+    )
 
     private var _sortRoutesByDistance = false
 
-    private var _transitItems: MutableStateFlow<List<TransitItems>> =
-        MutableStateFlow(value = listOf())
+    @NativeCoroutines
+    private var _transitItems = MutableStateFlow<List<TransitItems>>(
+        viewModelScope, value = listOf()
+    )
 
-    private val _state = MutableStateFlow(MainListState())
+    @NativeCoroutinesState
+    private val _state = MutableStateFlow(
+        viewModelScope, value = MainListState()
+    )
+    @NativeCoroutinesState
     val state = combine(
         _communityItems,
         _currentNavType,
@@ -70,24 +86,29 @@ class MainViewModel(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(
         5000L
-    ) , MainListState()).cStateFlow()
+    ) , MainListState())
 
+    @NativeCoroutines
     suspend fun getCoordsCount(): Long {
         return database.getCoordsCount()
     }
 
+    @NativeCoroutines
     suspend fun getRouteById(roId: Long): Routes {
         return database.getRouteById(roId)
     }
 
+    @NativeCoroutines
     suspend fun getRouteKtById(roId: Long): RouteKt {
         return database.getRouteKtById(roId)
     }
 
+    @NativeCoroutines
     suspend fun getRouteCount(): Long {
         return database.getRouteCount()
     }
 
+    @NativeCoroutines
     suspend fun getRoutes(): List<Routes> {
         return database.getRoutes(
             byDistance = _sortRoutesByDistance,
@@ -97,7 +118,7 @@ class MainViewModel(
 
     // TODO: getCount Crash?
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.coroutineScope.launch(Dispatchers.IO) {
             val defaultSortRoutesByDist = false
             val sortRoutesByDistance: Boolean
             when (database.getSettingsBooleanCount()) {
@@ -141,6 +162,7 @@ class MainViewModel(
         }
     }
 
+    @NativeCoroutines
     private suspend fun loadCommunityItems() {
 
         if (_communityItems.value.isEmpty()) {
@@ -153,6 +175,7 @@ class MainViewModel(
         }
     }
 
+    @NativeCoroutines
     private suspend fun loadRoutes() {
 
         if (_routeItems.value.isEmpty()) {
@@ -180,6 +203,7 @@ class MainViewModel(
         }
     }
 
+    @NativeCoroutines
     private suspend fun loadRouteDistances() {
 
         if (_sortRoutesByDistance) {
@@ -208,6 +232,7 @@ class MainViewModel(
         )
     }
 
+    @NativeCoroutines
     private suspend fun loadTransitItems() {
 
         if (_transitItems.value.isEmpty()) {
@@ -225,7 +250,7 @@ class MainViewModel(
             is MainListEvent.SetCommunityItemId -> {
             }
             is MainListEvent.SetCurrentNavType -> {
-                viewModelScope.launch {
+                viewModelScope.coroutineScope.launch {
                     when (event.navType) {
                         NavigationType.CommunityScreen -> {
                             loadCommunityItems()
@@ -244,7 +269,7 @@ class MainViewModel(
                 }
             }
             is MainListEvent.SetCurrentRouteId -> {
-                viewModelScope.launch {
+                viewModelScope.coroutineScope.launch {
                     val currentRoute = when (event.routeId) {
                         0L -> null
                         else -> {
@@ -298,7 +323,7 @@ class MainViewModel(
                 }
             }
             is MainListEvent.ToggleFaveRoute -> {
-                viewModelScope.launch {
+                viewModelScope.coroutineScope.launch {
                     val result: Long
                     when (event.time?.isBlank()) {
                         true -> { // previously NO timestamp, add fave
@@ -315,8 +340,8 @@ class MainViewModel(
                                             time = dateTime
                                         }
                                     state.copy(
-                                        currentRouteKt = MutableStateFlow(
-                                            currentRoute
+                                        currentRouteKt = MutableStateFlow<RouteKt?>(
+                                            viewModelScope, currentRoute
                                         )
                                     )
                                 }
@@ -331,8 +356,8 @@ class MainViewModel(
                                             time = String()
                                         }
                                     state.copy(
-                                        currentRouteKt = MutableStateFlow(
-                                            currentRoute
+                                        currentRouteKt = MutableStateFlow<RouteKt?>(
+                                            viewModelScope, currentRoute
                                         )
                                     )
                                 }
@@ -343,7 +368,7 @@ class MainViewModel(
             }
             is MainListEvent.ToggleSortRoutesByDistance -> {
                 val sortRoutesByDistance = !_sortRoutesByDistance
-                viewModelScope.launch {
+                viewModelScope.coroutineScope.launch {
                     if (database.setSettingSortByDist(
                         sortRoutesByDistance
                     ) > 0) {

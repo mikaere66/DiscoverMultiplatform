@@ -9,27 +9,27 @@ agp = "8.5.2"
 androidxActivityCompose = "1.9.1"
 composePlugin = "1.6.11"
 cupertino = "0.1.0-alpha04"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 
-compose-imageloader = "1.8.2"
 compose-material-icons-extended = "1.6.1"
 kermit = "2.0.4"
 koin = "4.0.0-RC1"
 koinComposeMultiplatform = "1.2.0-alpha3"
 koinComposeViewModel = "1.2.0-Beta4"
-kotlinxCoroutines = "1.9.0-RC"
+kotlinxCoroutines = "1.8.1" # was 1.9.0-RC
 kotlinxDateTime = "0.6.0"
 kotlinxSerialization = "1.7.0-RC"
-dataStore = "1.1.1"
+kspPlugin = "2.0.20-1.0.24"
 # From AndroidX
 lifecycleViewModel = "2.8.4"
 # From JetBrains
 lifecycleViewModelCompose = "2.8.0"
 material3 = "1.2.1"
 material3-window = "0.5.0"
-moko = "0.16.1"
+nativeCoroutines = "1.0.0-ALPHA-35"
 navigationCompose = "2.7.0-alpha06"
 navigationRuntimeKtx = "2.7.7"
+observableVm = "1.0.0-BETA-5"
 skie = "0.8.4"
 splashScreen = "1.0.1"
 sqlDelight = "2.0.2"
@@ -48,7 +48,6 @@ androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmode
 androidx-lifecycle-viewmodel-android = { module = "androidx.lifecycle:lifecycle-viewmodel-android", version.ref = "lifecycleViewModel"}
 androidx-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewModelCompose"}
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
-compose-imageloader  = { module = "io.github.qdsfdhvh:image-loader", version.ref = "compose-imageloader" }
 compose-material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose-material-icons-extended" }
 cupertino-adaptive = { module = "io.github.alexzhirkevich:cupertino-adaptive", version.ref = "cupertino" }
 cupertino-icons-extended = { module = "io.github.alexzhirkevich:cupertino-icons-extended", version.ref = "cupertino" }
@@ -62,11 +61,9 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
-data-store-preferences = { module = "androidx.datastore:datastore-preferences-core", version.ref = "dataStore" }
 material3-window = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "material3-window" }
-moko-mvvm-core =    { module = "dev.icerock.moko:mvvm-core",    version.ref = "moko" }
-moko-mvvm-flow =    { module = "dev.icerock.moko:mvvm-flow",    version.ref = "moko" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+observable-viewmodel = { module = "com.rickclephas.kmp:kmp-observableviewmodel-core",    version.ref = "observableVm" }
 sqldelight-coroutines-ext = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "sqlDelight" }
 sqldelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
 sqldelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
@@ -83,7 +80,9 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "composePlugin"
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kspPlugin = { id = "com.google.devtools.ksp", version.ref = "kspPlugin" }
+nativeCoroutines = { id = "com.rickclephas.kmp.nativecoroutines", version.ref = "nativeCoroutines" }
 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
 
 secretsGradle = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsGradle" }
-touchlabSkie = { id = "co.touchlab.skie", version.ref = "skie" }
+#touchlabSkie = { id = "co.touchlab.skie", version.ref = "skie" }

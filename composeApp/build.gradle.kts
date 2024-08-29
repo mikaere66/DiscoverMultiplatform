@@ -7,10 +7,13 @@ plugins {
     alias(libs.plugins.compose.compiler)
 
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.sqlDelight) version libs.versions.sqlDelight.get()
+
+    alias(libs.plugins.kspPlugin)
+    alias(libs.plugins.nativeCoroutines)
 
     alias(libs.plugins.secretsGradle) version libs.versions.secretsGradle.get()
-    alias(libs.plugins.touchlabSkie)
+
+    alias(libs.plugins.sqlDelight) version libs.versions.sqlDelight.get()
 }
 
 kotlin {
@@ -41,6 +44,10 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings.optIn("kotlinx.cinterop.ExperimentalForeignApi")
+            languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
+        }
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -64,9 +71,6 @@ kotlin {
             implementation(libs.compose.material.icons.extended)
 
             implementation(libs.androidx.lifecycle.viewmodel.compose)
-            api(libs.moko.mvvm.core)
-            api(libs.moko.mvvm.flow)
-            implementation(libs.compose.imageloader)
             implementation(libs.cupertino.adaptive)
             implementation(libs.cupertino.icons.extended)
             implementation(libs.kermit.the.log)
@@ -75,9 +79,9 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.data.store.preferences)
             implementation(libs.material3.window)
             implementation(libs.navigation.compose)
+            api(libs.observable.viewmodel)
             implementation(libs.sqldelight.coroutines.ext)
         }
 
