@@ -5,8 +5,10 @@ import ComposeApp
 
 struct ComposeView: UIViewControllerRepresentable {
 
+    @StateObject var viewModel = MainViewModel()
+
     func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.MainViewController()
+        MainViewControllerKt.MainViewController(viewModel: viewModel)
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
