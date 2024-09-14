@@ -1,7 +1,7 @@
 
 import UIKit
 import SwiftUI
-//import ComposeApp
+import ComposeApp
 
 struct ComposeView: UIViewControllerRepresentable {
 
