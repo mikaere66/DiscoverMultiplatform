@@ -8,7 +8,7 @@ struct ComposeView: UIViewControllerRepresentable {
 //    @StateObject var viewModel = MainViewModel()
 
     func makeUIViewController(context: Context) -> UIViewController {
-        MainViewControllerKt.MainViewController(viewModel: viewModel)
+        MainViewControllerKt.MainViewController()
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
