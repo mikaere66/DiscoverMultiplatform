@@ -7,9 +7,9 @@ data class NavigationItem(
 //    var badgeCount: Int? = null,
     val label: String,
     val navType: NavigationType,
-    val route: String,
-    var selected: Boolean = false,
-    val selectedIcon  : ImageVector,
-    val unselectedIcon: ImageVector
-//    val icon: ImageVector
+//    val route: String,
+//    var selected: Boolean = false,
+//    val selectedIcon  : ImageVector,
+//    val unselectedIcon: ImageVector
+    val icon: ImageVector
 )

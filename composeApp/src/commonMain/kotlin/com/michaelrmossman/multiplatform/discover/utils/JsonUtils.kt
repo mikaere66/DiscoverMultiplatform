@@ -1,10 +1,10 @@
 package com.michaelrmossman.multiplatform.discover.utils
 
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionCommunityItems
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionCycleLanes
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionRoutes
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionTransitItems
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionHighlights
+import com.michaelrmossman.multiplatform.discover.collections.FeatureCollectionCommunityItems
+import com.michaelrmossman.multiplatform.discover.collections.FeatureCollectionCycleLanes
+import com.michaelrmossman.multiplatform.discover.collections.FeatureCollectionRoutes
+import com.michaelrmossman.multiplatform.discover.collections.FeatureCollectionTransitItems
+import com.michaelrmossman.multiplatform.discover.collections.FeatureCollectionHighlights
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import discovermultiplatform.composeapp.generated.resources.Res
 import kotlinx.serialization.json.Json

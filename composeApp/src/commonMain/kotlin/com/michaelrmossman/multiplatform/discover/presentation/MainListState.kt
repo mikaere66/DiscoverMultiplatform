@@ -7,7 +7,6 @@ import com.michaelrmossman.multiplatform.discover.database.TransitItems
 import com.michaelrmossman.multiplatform.discover.entities.RouteKt
 import com.michaelrmossman.multiplatform.discover.navigation.NavigationItem
 import com.michaelrmossman.multiplatform.discover.navigation.NavigationType
-import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import kotlinx.coroutines.flow.MutableStateFlow
 
 data class MainListState(
@@ -17,12 +16,11 @@ data class MainListState(
     val currentNavType: NavigationType = NavigationType.CommunityScreen,
 
     val currentRoute: Routes? = null,
-    @NativeCoroutines
     val currentRouteKt: MutableStateFlow<RouteKt?>? = null,
 
-    val favourites: List<Any> = emptyList(),
+    val favourites: List<Routes> = emptyList(), // TODO
 
-    val navItems: List<NavigationItem> = emptyList(),
+//    val navItems: List<NavigationItem> = emptyList(),
 
     val pleaseWaitMessage: String = String(),
 

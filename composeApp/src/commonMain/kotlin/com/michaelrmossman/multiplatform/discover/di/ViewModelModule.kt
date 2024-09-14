@@ -1,5 +1,9 @@
 package com.michaelrmossman.multiplatform.discover.di
 
-import org.koin.core.module.Module
+import com.composegears.tiamat.koin.tiamatViewModelOf
+import com.michaelrmossman.multiplatform.discover.presentation.MainViewModel
+import org.koin.dsl.module
 
-expect val viewModelModule: Module
+val viewModelModule = module {
+    tiamatViewModelOf(::MainViewModel)
+}

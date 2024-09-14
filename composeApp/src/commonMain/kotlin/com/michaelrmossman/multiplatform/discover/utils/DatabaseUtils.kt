@@ -21,28 +21,29 @@ object DatabaseUtils {
         )
     }
 
-    fun mapRouteToRouteKt(
-        coordinates: List<Coordinates>, route: Routes
-    ) : RouteKt {
-        return RouteKt(
-            route.roId,
-            route.ccId,
-            route.lati,
-            route.long,
-            route.area,
-            route.plac,
-            route.name,
-            route.shar,
-            route.stat,
-            route.desc,
-            route.dogs,
-            route.dist,
-            route.dura,
-            route.time,
-            // routeKtCoordsList
-            coordinates
-        )
-    }
+//    fun mapRouteToRouteKt(
+//        coordinates: List<Coordinates>, route: Routes
+//    ) : RouteKt {
+//        return RouteKt(
+//            route.roId,
+//            route.ccId,
+//            route.lati,
+//            route.long,
+//            route.area,
+//            route.plac,
+//            route.name,
+//            route.shar,
+//            route.stat,
+//            route.desc,
+//            route.dogs,
+//            route.dist,
+//            route.dura,
+//            route.time,
+//            coordinates.map { coords ->
+//                coords.toCoordsKt()
+//            }
+//        )
+//    }
 
 //    fun mapFeaturesToHighlights(
 //        feId: Long,

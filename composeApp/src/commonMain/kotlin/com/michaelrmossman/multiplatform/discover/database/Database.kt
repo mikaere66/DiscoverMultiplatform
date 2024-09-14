@@ -1,21 +1,27 @@
 package com.michaelrmossman.multiplatform.discover.database
 
+import app.cash.sqldelight.coroutines.asFlow
+import app.cash.sqldelight.coroutines.mapToList
 import co.touchlab.kermit.Logger
-import com.michaelrmossman.multiplatform.discover.entities.Coordinates
+import com.michaelrmossman.multiplatform.discover.entities.CoordsKt
 import com.michaelrmossman.multiplatform.discover.entities.RouteKt
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionCommunityItems
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionCycleLanes
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionHighlights
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionRoutes
-import com.michaelrmossman.multiplatform.discover.features.FeatureCollectionTransitItems
+import com.michaelrmossman.multiplatform.discover.entities.toCoordsKt
+import com.michaelrmossman.multiplatform.discover.entities.toRouteKt
+import com.michaelrmossman.multiplatform.discover.collections.FeatureCollectionCommunityItems
+import com.michaelrmossman.multiplatform.discover.collections.FeatureCollectionCycleLanes
+import com.michaelrmossman.multiplatform.discover.collections.FeatureCollectionHighlights
+import com.michaelrmossman.multiplatform.discover.collections.FeatureCollectionRoutes
+import com.michaelrmossman.multiplatform.discover.collections.FeatureCollectionTransitItems
 import com.michaelrmossman.multiplatform.discover.utils.Constants.CONNECTOR_STRING
 import com.michaelrmossman.multiplatform.discover.utils.Constants.ITEM_TYPE_CYCLE
 import com.michaelrmossman.multiplatform.discover.utils.Constants.ITEM_TYPE_ROUTE
 import com.michaelrmossman.multiplatform.discover.utils.Constants.PREFS_SORT_BY_DIST
 import com.michaelrmossman.multiplatform.discover.utils.Constants.PREFS_START_SCREEN
 import com.michaelrmossman.multiplatform.discover.utils.Constants.ROUTE_NAME_ANOMALY
-import com.michaelrmossman.multiplatform.discover.utils.DatabaseUtils.mapRouteToRouteKt
 import com.michaelrmossman.multiplatform.discover.utils.getLocalTime
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.Flow
 
 internal class Database(
     databaseDriverFactory: DatabaseDriverFactory
@@ -56,6 +62,14 @@ internal class Database(
         return communityQueries.getCommunityItems().executeAsList()
     }
 
+    internal fun getCoordsKtById(itId: Long, type: Long): List<CoordsKt> {
+        return coordinateQueries.getCoordsById(
+            itId = itId, type = type
+        ).executeAsList().map { coords ->
+            coords.toCoordsKt()
+        }
+    }
+
     internal fun getCoordsCount(): Long {
         return coordinateQueries.getCoordsCount().executeAsOne()
     }
@@ -70,13 +84,16 @@ internal class Database(
         return routeQueries.getRouteById(roId).executeAsOne()
     }
 
-    internal fun getRouteKtById(roId: Long): RouteKt {
-        val coordinates = coordinateQueries.getCoordsById(
-            itId = roId, type = ITEM_TYPE_ROUTE
-        ).executeAsList()
-        val route = routeQueries.getRouteById(roId).executeAsOne()
-        return mapRouteToRouteKt(coordinates, route)
-    }
+//    internal suspend fun getRouteKtById(roId: Long): RouteKt {
+//        val coordinates = coordinateQueries.getCoordsById(
+//            itId = roId, type = ITEM_TYPE_ROUTE
+//        ).executeAsList()
+//        val route = routeQueries.getRouteById(roId).executeAsOne()
+//        val coords = coordinates.map { coords ->
+//            coords.toCoordsKt()
+//        }
+//        return route.toRouteKt(coords) // mapRouteToRouteKt(coordinates, route)
+//    }
 
     /* WHERE name NOT LIKE %connector (IGNORE CASE) */
     internal fun getRouteCount(): Long {
@@ -104,19 +121,38 @@ internal class Database(
         }
     }
 
-    internal fun getRoutesKt(connectors: Boolean): List<RouteKt> {
-        val routesKt = mutableListOf<RouteKt>()
-        val routes = when (connectors) {
-            true -> routeQueries.getRoutes().executeAsList()
-            else -> routeQueries.getRoutesOnly(
-                "%$CONNECTOR_STRING"
-            ).executeAsList()
+    internal fun getRoutesFlow(
+        byDistance: Boolean, connectors: Boolean
+    ) : Flow<List<Routes>> {
+        return when (connectors) {
+            true -> routeQueries.getRoutes().asFlow().mapToList(
+                Dispatchers.IO
+            )
+            else -> when (byDistance) {
+                true -> routeQueries.getRoutesOnlyByDistance(
+                    "%$CONNECTOR_STRING"
+                ).asFlow().mapToList(
+                    Dispatchers.IO
+                )
+                else -> routeQueries.getRoutesOnly(
+                    "%$CONNECTOR_STRING"
+                ).asFlow().mapToList(
+                    Dispatchers.IO
+                )
+            }
         }
-        routes.forEach { route ->
-            routesKt.add(getRouteKtById(route.roId))
-        }
-        return routesKt
     }
+
+//    internal suspend fun getRoutesKt(
+//        byDistance: Boolean, connectors: Boolean
+//    ) : List<RouteKt> {
+//        val routesKt = mutableListOf<RouteKt>()
+//        val routes = getRoutes(byDistance, connectors)
+//        routes.forEach { route ->
+//            routesKt.add(getRouteKtById(route.roId))
+//        }
+//        return routesKt
+//    }
 
     internal fun getSettingsBooleanCount(): Long {
         return settingsBooleanQueries.getSettingsBooleanCount().executeAsOne()
@@ -145,7 +181,7 @@ internal class Database(
     }
 
     private fun insertCoordinates(
-        coordinates: List<Coordinates>, itId: Long, type: Long
+        coordinates: List<CoordsKt>, itId: Long, type: Long
     ) {
         coordinates.forEach { coords ->
             val lati1 = coords.latitude
@@ -366,7 +402,6 @@ internal class Database(
                 }
             }
         }
-        Logger.i("TIMER STOP") { getLocalTime(false) }
     }
 
     internal fun loadTransitItems(items: FeatureCollectionTransitItems) {

@@ -81,8 +81,9 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.material3.window)
             implementation(libs.navigation.compose)
-            api(libs.observable.viewmodel)
             implementation(libs.sqldelight.coroutines.ext)
+            implementation(libs.tiamat)
+            implementation(libs.tiamat.koin)
         }
 
         iosMain.dependencies {

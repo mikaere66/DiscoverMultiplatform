@@ -1,0 +1,19 @@
+
+/**
+ * faId INTEGER NOT NULL PRIMARY KEY,
+ */
+CREATE TABLE Favourites(
+    itId INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    time TEXT NOT NULL,
+    type INTEGER NOT NULL
+);
+
+insertFave:
+INSERT INTO Favourites(itId, name, time, type)
+VALUES (?,?,?,?);
+
+removeFave:
+DELETE FROM Favourites
+WHERE itId = ?
+AND type = ?;

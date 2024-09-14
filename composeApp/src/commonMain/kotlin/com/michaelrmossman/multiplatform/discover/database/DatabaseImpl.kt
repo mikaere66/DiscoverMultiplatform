@@ -1,6 +1,7 @@
 package com.michaelrmossman.multiplatform.discover.database
 
 import co.touchlab.kermit.Logger
+import com.michaelrmossman.multiplatform.discover.entities.CoordsKt
 import com.michaelrmossman.multiplatform.discover.entities.RouteKt
 import com.michaelrmossman.multiplatform.discover.utils.Constants.JSON_FILENAME_COMMUNITY
 import com.michaelrmossman.multiplatform.discover.utils.Constants.JSON_FILENAME_CYCLE_LANES
@@ -11,6 +12,7 @@ import com.michaelrmossman.multiplatform.discover.utils.DatabaseUtils.getSeasonM
 import com.michaelrmossman.multiplatform.discover.utils.JsonUtils
 import com.michaelrmossman.multiplatform.discover.utils.getDistanceTo
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
+import kotlinx.coroutines.flow.Flow
 
 class DatabaseImpl(
     databaseDriverFactory: DatabaseDriverFactory,
@@ -31,6 +33,11 @@ class DatabaseImpl(
     @Throws(Exception::class)
     fun getCommunityItems(): List<CommunityItems> {
         return database.getCommunityItems()
+    }
+
+    @Throws(Exception::class)
+    fun getCoordsKtById(itId: Long, type: Long): List<CoordsKt> {
+        return database.getCoordsKtById(itId, type)
     }
 
     @Throws(Exception::class)
@@ -58,10 +65,10 @@ class DatabaseImpl(
         return database.getRouteDistToCityCount()
     }
 
-    @Throws(Exception::class)
-    fun getRouteKtById(roId: Long): RouteKt {
-        return database.getRouteKtById(roId)
-    }
+//    @Throws(Exception::class)
+//    suspend fun getRouteKtById(roId: Long): RouteKt {
+//        return database.getRouteKtById(roId)
+//    }
 
     @Throws(Exception::class)
     fun getRoutes(
@@ -71,9 +78,18 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
-    fun getRoutesKt(connectors: Boolean): List<RouteKt> {
-        return database.getRoutesKt(connectors)
+    fun getRoutesFlow(
+        byDistance: Boolean, connectors: Boolean
+    ) : Flow<List<Routes>> {
+        return database.getRoutesFlow(byDistance, connectors)
     }
+
+//    @Throws(Exception::class)
+//    suspend fun getRoutesKt(
+//        byDistance: Boolean, connectors: Boolean
+//    ) : List<RouteKt> {
+//        return database.getRoutesKt(byDistance, connectors)
+//    }
 
     @Throws(Exception::class)
     fun getSettingsBooleanCount(): Long {
@@ -146,7 +162,7 @@ class DatabaseImpl(
 
     @Throws(Exception::class)
     @NativeCoroutines
-    suspend fun loadRouteDistances(routes: List<Routes>) {
+    fun loadRouteDistances(routes: List<Routes>) {
         routes.forEach { route ->
             val distance = getDistanceTo(route.lati, route.long)
             // Logger.d("HEY") { "|${ route.name }|$distance" }
@@ -170,11 +186,6 @@ class DatabaseImpl(
         json.parseTransitFile(jsonString).also { items ->
             database.loadTransitItems(items)
         }
-    }
-
-    @Throws(Exception::class)
-    fun setDistanceToCity(distance: Double, roId: Long) {
-        database.setDistanceToCity(distance, roId)
     }
 
     @Throws(Exception::class)

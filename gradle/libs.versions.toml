@@ -29,10 +29,11 @@ material3-window = "0.5.0"
 nativeCoroutines = "1.0.0-ALPHA-35"
 navigationCompose = "2.7.0-alpha06"
 #navigationRuntimeKtx = "2.7.7"
-observableVm = "1.0.0-BETA-5"
 #skie = "0.8.4"
 splashScreen = "1.0.1"
 sqlDelight = "2.0.2"
+tiamat = "1.1.1"
+tiamatKoin = "1.1.0"
 
 accompanist = "0.29.2-rc"
 #gmsLocation = "21.3.0"
@@ -63,10 +64,11 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 material3-window = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "material3-window" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
-observable-viewmodel = { module = "com.rickclephas.kmp:kmp-observableviewmodel-core",    version.ref = "observableVm" }
 sqldelight-coroutines-ext = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
 sqldelight-driver-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
 sqldelight-driver-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
+tiamat = { module = "io.github.composegears:tiamat", version.ref = "tiamat" }
+tiamat-koin = { module = "io.github.composegears:tiamat-koin", version.ref = "tiamatKoin" }
 
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 #play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "gmsLocation" }

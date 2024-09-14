@@ -12,7 +12,6 @@ actual class KoinInitializer(
             androidContext(context)
             modules(
                 databaseModule,
-//                dataStoreModule,
                 viewModelModule
             )
         }
