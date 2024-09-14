@@ -1,11 +1,11 @@
 
 import UIKit
 import SwiftUI
-import ComposeApp
+//import ComposeApp
 
 struct ComposeView: UIViewControllerRepresentable {
 
-    @StateObject var viewModel = MainViewModel()
+//    @StateObject var viewModel = MainViewModel()
 
     func makeUIViewController(context: Context) -> UIViewController {
         MainViewControllerKt.MainViewController(viewModel: viewModel)
