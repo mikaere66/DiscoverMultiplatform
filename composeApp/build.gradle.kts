@@ -11,9 +11,9 @@ plugins {
     alias(libs.plugins.kspPlugin)
     alias(libs.plugins.nativeCoroutines)
 
-    alias(libs.plugins.secretsGradle) // version libs.versions.secretsGradle.get()
+    alias(libs.plugins.secretsGradle) version libs.versions.secretsGradle.get()
 
-    alias(libs.plugins.sqlDelight) // version libs.versions.sqlDelight.get()
+    alias(libs.plugins.sqlDelight) version libs.versions.sqlDelight.get()
 }
 
 kotlin {
