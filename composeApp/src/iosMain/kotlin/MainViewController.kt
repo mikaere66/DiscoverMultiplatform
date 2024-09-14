@@ -4,7 +4,7 @@ import androidx.compose.ui.window.ComposeUIViewController
 import com.michaelrmossman.multiplatform.discover.di.KoinInitializer
 import com.michaelrmossman.multiplatform.discover.DiscoverApp
 
-fun MainViewController(viewModel: MainViewModel) = ComposeUIViewController(
+fun MainViewController() = ComposeUIViewController(
     configure = {
         KoinInitializer().init()
     }
