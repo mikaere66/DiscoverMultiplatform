@@ -5,7 +5,7 @@ android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
 
-agp = "8.5.2"
+agp = "8.6.0" # was 8.5.2
 androidxActivityCompose = "1.9.1"
 composePlugin = "1.7.0-alpha03" # was 1.6.11
 cupertino = "0.1.0-alpha04"

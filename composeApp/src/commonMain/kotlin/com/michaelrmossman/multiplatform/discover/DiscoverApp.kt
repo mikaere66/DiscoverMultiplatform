@@ -31,15 +31,8 @@ fun DiscoverApp(
 
         Surface(Modifier.fillMaxSize()) {
 
-//            @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-//            val windowSizeClass: WindowSizeClass = calculateWindowSizeClass()
-
-//            val walkScreen by navDestination<NavArgsData> {
-//                WalkScreen(
-//                // navController = navController(),
-//                    viewModel = koinSharedTiamatViewModel<MainViewModel>()
-//                )
-//            }
+            @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+            val windowSizeClass: WindowSizeClass = calculateWindowSizeClass()
 
             val navController = rememberNavController(
                 key = "rootNavController",
