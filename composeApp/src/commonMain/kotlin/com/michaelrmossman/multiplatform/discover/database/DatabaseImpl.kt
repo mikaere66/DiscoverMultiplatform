@@ -127,7 +127,6 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
-    @NativeCoroutines
     suspend fun loadCommunityItems() {
         val jsonString = json.getJsonString(JSON_FILENAME_COMMUNITY)
         json.parseCommunityFile(jsonString).also { items ->
@@ -136,7 +135,6 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
-    @NativeCoroutines
     suspend fun loadCycleLanes() {
         val jsonString = json.getJsonString(JSON_FILENAME_CYCLE_LANES)
         json.parseCycleLanesFile(jsonString).also { collection ->
@@ -145,7 +143,6 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
-    @NativeCoroutines
     suspend fun loadHighlights() {
         /* This list maps one or more calendar
            months to a particular (CCC) season */
@@ -161,7 +158,6 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
-    @NativeCoroutines
     fun loadRouteDistances(routes: List<Routes>) {
         routes.forEach { route ->
             val distance = getDistanceTo(route.lati, route.long)
@@ -171,7 +167,6 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
-    @NativeCoroutines
     suspend fun loadRoutes() {
         val jsonString = json.getJsonString(JSON_FILENAME_ROUTES)
         json.parseRoutesFile(jsonString).also { collection ->
@@ -180,7 +175,6 @@ class DatabaseImpl(
     }
 
     @Throws(Exception::class)
-    @NativeCoroutines
     suspend fun loadTransitItems() {
         val jsonString = json.getJsonString(JSON_FILENAME_TRANSIT)
         json.parseTransitFile(jsonString).also { items ->

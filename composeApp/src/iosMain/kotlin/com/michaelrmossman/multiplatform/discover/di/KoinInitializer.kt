@@ -8,7 +8,7 @@ actual class KoinInitializer {
         startKoin {
             modules(
                 databaseModule,
-                // viewModelModule
+                viewModelModule
             )
         }
     }
